@@ -1,105 +1,129 @@
-from pyspark.sql import SparkSession
+"""Iceberg maintenance and benchmark runner for bus_way_point.
+
+The script performs maintenance in this order:
+1. Compact data files.
+2. Rewrite manifests.
+3. Expire snapshots.
+4. Remove orphan files.
+
+It also reports table health before and after maintenance and runs
+representative benchmark queries to compare execution time.
+"""
+
+import os
 from datetime import datetime, timedelta, timezone
+from time import perf_counter
+
+from pyspark.sql import SparkSession
 
 # ================== CONFIG ==================
 APP_NAME = "IcebergMaintenance"
+CATALOG_NAME = "catalog_iceberg"
+TABLE = os.getenv("ICEBERG_TABLE", "catalog_iceberg.bus_silver.bus_way_point")
 
-TABLE = "catalog_iceberg.bus_silver.bus_way_point"  # Thay bằng tên bảng bạn muốn bảo trì
+ICEBERG_REST_URI = "http://gravitino:9001/iceberg/"
+ICEBERG_WAREHOUSE = "s3a://iceberg/lakehouse"
 
-# Iceberg REST catalog endpoint
-ICEBERG_REST_URI = "http://iceberg-rest:8181"
+ENABLE_COMPACT_DATA_FILES = True
+ENABLE_REWRITE_MANIFESTS = True
+ENABLE_EXPIRE_SNAPSHOTS = True
+ENABLE_REMOVE_ORPHANS = True
+SHOW_OPTIMIZATION_RECOMMENDATIONS = True
 
-ENABLE_COMPACT_DATA_FILES   = True   # gom file nhỏ -> file lớn
-ENABLE_EXPIRE_SNAPSHOTS     = True   # xóa snapshot cũ
-ENABLE_REMOVE_ORPHANS       = True   # xóa file mồ côi
-ENABLE_REWRITE_MANIFESTS    = True   # gom manifest nhỏ
+MIN_FILE_SIZE_BYTES = 3 * 1024 * 1024
+TARGET_FILE_SIZE_BYTES = 64 * 1024 * 1024
+MAX_FILE_SIZE_BYTES = 128 * 1024 * 1024
+RETAIN_LAST_SNAPSHOTS = 3
+ORPHAN_RETENTION_DAYS = 10
 
-MIN_FILE_SIZE_BYTES     = 3 * 1024 * 1024       
-TARGET_FILE_SIZE_BYTES  = 64 * 1024 * 1024     
-MAX_FILE_SIZE_BYTES     = 128 * 1024 * 1024   
-RETAIN_LAST_SNAPSHOTS   = 1   
-ORPHAN_RETENTION_DAYS   = 10 
+BENCHMARK_QUERIES = [
+    (
+        "daily_vehicle_volume",
+        f"""
+        SELECT date, vehicle, COUNT(*) AS point_count, AVG(speed) AS avg_speed
+        FROM {TABLE}
+        WHERE date BETWEEN DATE_SUB(CURRENT_DATE(), 7) AND CURRENT_DATE()
+        GROUP BY date, vehicle
+        ORDER BY date, vehicle
+        """,
+    ),
+    (
+        "vehicle_summary",
+        f"""
+        SELECT vehicle, COUNT(*) AS point_count, AVG(speed) AS avg_speed, MAX(timestamp) AS last_seen
+        FROM {TABLE}
+        GROUP BY vehicle
+        ORDER BY point_count DESC
+        LIMIT 50
+        """,
+    ),
+]
 
 spark = (
-    SparkSession.builder
-    .appName(APP_NAME)
-
+    SparkSession.builder.appName(APP_NAME)
     .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
-    .config(f"spark.sql.catalog.iceberg", "org.apache.iceberg.spark.SparkCatalog")
-    .config(f"spark.sql.catalog.iceberg.type", "rest")
-    .config(f"spark.sql.catalog.iceberg.uri", "http://iceberg-rest:8181")
-    .config(f"spark.sql.catalog.iceberg.warehouse", "s3a://lake/")
-    .config("spark.sql.defaultCatalog", "iceberg") 
-    .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
-    .config("spark.hadoop.fs.s3a.access.key", "minioadmin")
-    .config("spark.hadoop.fs.s3a.secret.key", "minioadmin123")
-    .config("spark.hadoop.fs.s3a.path.style.access", "true")
-    .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false")
-    .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}", "org.apache.iceberg.spark.SparkCatalog")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.type", "rest")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.uri", ICEBERG_REST_URI)
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.warehouse", ICEBERG_WAREHOUSE)
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.io-impl", "org.apache.iceberg.aws.s3.S3FileIO")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.s3.endpoint", "http://minio:9000")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.s3.path-style-access", "true")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.s3.access-key-id", "minioadmin")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.s3.secret-access-key", "minioadmin123")
+    .config(f"spark.sql.catalog.{CATALOG_NAME}.client.region", "us-east-1")
+    .config("spark.sql.defaultCatalog", CATALOG_NAME)
     .getOrCreate()
 )
 
 spark.sparkContext.setLogLevel("ERROR")
 
 
-def run(sql: str):
+def execute_sql(sql: str, show: bool = True):
     print("\n=== RUN SQL ===")
     print(sql.strip())
-    res = spark.sql(sql)
-    print("=== RESULT ===")
-    res.show(truncate=False)
+    result = spark.sql(sql)
+    if show:
+        print("=== RESULT ===")
+        result.show(truncate=False)
+    return result
 
 
-# ================== MAINTENANCE TASKS ==================
-print("\n=== CHECK ENV ===")
-spark.sql("SHOW CATALOGS").show()
-spark.sql("SHOW DATABASES IN iceberg").show()
+def show_table_health(stage: str):
+    print(f"\n=== TABLE HEALTH: {stage.upper()} ===")
+    execute_sql(f"SELECT COUNT(*) AS row_count FROM {TABLE}")
+    execute_sql(f"SELECT COUNT(*) AS snapshot_count FROM {TABLE}.snapshots")
+    execute_sql(f"SELECT COUNT(*) AS manifest_count FROM {TABLE}.manifests")
+    execute_sql(f"DESCRIBE TABLE EXTENDED {TABLE}")
 
-print("\n=== Row count hiện tại ===")
-spark.sql("SELECT COUNT(*) AS row_count FROM iceberg.testsi.buswaypoint").show()
 
-print("\n=== Snapshots hiện tại ===")
-spark.sql("""
-    SELECT committed_at, snapshot_id, parent_id, operation
-    FROM iceberg.testsi.buswaypoint.snapshots
-""").show(truncate=False)
-# spark.sql("SHOW TABLES IN iceberg.bronze").show()
+def benchmark_query(name: str, sql: str):
+    print(f"\n=== BENCHMARK: {name} ===")
+    print(sql.strip())
+    start = perf_counter()
+    rows = spark.sql(sql).count()
+    elapsed = perf_counter() - start
+    print(f"Rows returned: {rows}")
+    print(f"Elapsed seconds: {elapsed:.3f}")
+    return elapsed
 
-# spark.sql("SELECT COUNT(*) AS row_count FROM iceberg.testsi.buswaypoint").show()
 
-spark.sql("""
-    SELECT committed_at, snapshot_id, parent_id, operation
-    FROM iceberg.testsi.buswaypoint.snapshots
-""").show(truncate=False)
+def run_benchmarks(stage: str):
+    print(f"\n=== BENCHMARKS: {stage.upper()} ===")
+    timings = {}
+    for name, sql in BENCHMARK_QUERIES:
+        timings[name] = benchmark_query(name, sql)
+    return timings
 
-# print("\n=== Row count hiện tại ===")
-# spark.sql("SHOW CATALOGS").show()
-# spark.sql("SELECT COUNT(*) AS row_count FROM iceberg.testsi.buswaypoint").show()
-
-print("\n=== Số lượng snapshot hiện tại ===")
-spark.sql("SELECT COUNT(*) AS snapshot_count FROM iceberg.testsi.buswaypoint.snapshots").show()
-
-print("\n=== Số lượng manifest hiện tại ===")
-spark.sql("SELECT COUNT(*) AS manifest_count FROM iceberg.testsi.buswaypoint.manifests").show()
-
-print("\n=== Mô tả bảng ===")
-spark.sql("DESCRIBE TABLE iceberg.testsi.buswaypoint").show(truncate=False)
-# print("\n=== Snapshots hiện tại (nếu có) ===")
-# spark.sql(f"""
-#     SELECT committed_at, snapshot_id, parent_id, operation
-#     FROM iceberg.testsi.buswaypoint.snapshots
-# """).show(truncate=False)
 
 def compact_data_files():
-    """
-    Gom các data file nhỏ thành file lớn hơn.
-    """
     if not ENABLE_COMPACT_DATA_FILES:
         print("Skip compact_data_files (disabled).")
         return
+
     print("\n>>> [1] Compact small data files")
     sql = f"""
-        CALL iceberg.system.rewrite_data_files(
+        CALL {CATALOG_NAME}.system.rewrite_data_files(
             table => '{TABLE}',
             options => map(
                 'min-file-size-bytes',    '{MIN_FILE_SIZE_BYTES}',
@@ -108,72 +132,82 @@ def compact_data_files():
             )
         )
     """
-    run(sql)
+    execute_sql(sql)
+
 
 def rewrite_manifests():
-    """
-    Gom manifest nhỏ, sắp xếp lại metadata để query nhanh hơn.
-    """
     if not ENABLE_REWRITE_MANIFESTS:
         print("Skip rewrite_manifests (disabled).")
         return
 
     print("\n>>> [2] Rewrite manifests")
     sql = f"""
-        CALL iceberg.system.rewrite_manifests(
+        CALL {CATALOG_NAME}.system.rewrite_manifests(
             table => '{TABLE}'
         )
     """
-    run(sql)
+    execute_sql(sql)
 
 
 def expire_snapshots():
-    """
-    Xóa snapshot cũ, chỉ giữ lại một số snapshot gần nhất (expire_snapshots).
-    """
     if not ENABLE_EXPIRE_SNAPSHOTS:
         print("Skip expire_snapshots (disabled).")
         return
 
     print("\n>>> [3] Expire old snapshots")
     sql = f"""
-        CALL iceberg.system.expire_snapshots(
+        CALL {CATALOG_NAME}.system.expire_snapshots(
             table => '{TABLE}',
             retain_last => {RETAIN_LAST_SNAPSHOTS}
         )
     """
-    run(sql)
+    execute_sql(sql)
 
 
 def remove_orphan_files():
-    """
-    Xóa orphan files – file không còn được snapshot nào tham chiếu.
-    """
     if not ENABLE_REMOVE_ORPHANS:
         print("Skip remove_orphan_files (disabled).")
         return
 
     print("\n>>> [4] Remove orphan files")
-    cutoff = (
-        datetime.now(timezone.utc) - timedelta(days=ORPHAN_RETENTION_DAYS)
-    ).strftime("%Y-%m-%d %H:%M:%S")
-
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=ORPHAN_RETENTION_DAYS)).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
     sql = f"""
-        CALL iceberg.system.remove_orphan_files(
+        CALL {CATALOG_NAME}.system.remove_orphan_files(
             table => '{TABLE}',
             older_than => TIMESTAMP '{cutoff}'
         )
     """
-    run(sql)
+    execute_sql(sql)
+
+
+def print_optimization_recommendations():
+    if not SHOW_OPTIMIZATION_RECOMMENDATIONS:
+        return
+
+    print("\n=== OPTIMIZATION RECOMMENDATIONS ===")
+    print("1. Partition by date if the dashboard usually filters on date.")
+    print("2. Consider sorting by date, vehicle, timestamp to improve data skipping.")
+    print("3. Reduce small files at ingest by repartitioning before write and tuning file size.")
+    print("4. Benchmark with real dashboard or analytics queries instead of only COUNT(*).")
+    print("5. Tune snapshot retention by environment: fewer in dev/test, more in production if rollback is important.")
+
+
 # ================== MAIN ==================
 if __name__ == "__main__":
     try:
+        show_table_health("before")
+        run_benchmarks("before")
 
-        # compact_data_files()
-        # spark.sql("SELECT snapshot_id, operation FROM iceberg.testsi.buswaypoint.snapshots ORDER BY committed_at DESC LIMIT 3;").show()
-        # rewrite_manifests()
+        compact_data_files()
+        rewrite_manifests()
         expire_snapshots()
-        # remove_orphan_files()
+        remove_orphan_files()
+
+        show_table_health("after")
+        run_benchmarks("after")
+        print_optimization_recommendations()
     finally:
         spark.stop()
         print("\n>>> Spark session stopped.")
