@@ -220,6 +220,9 @@ services:
       /usr/bin/mc mb myminio/iceberg --ignore-existing;
       /usr/bin/mc mb myminio/iceberg/lakehouse --ignore-existing;
       /usr/bin/mc anonymous set public myminio/iceberg/lakehouse;
+      /usr/bin/mc mb myminio/bus-ai --ignore-existing;
+      /usr/bin/mc mb myminio/bus-ai/gold --ignore-existing;
+      /usr/bin/mc anonymous set private myminio/bus-ai;
       "
     networks:
       - local-data-lakehouse

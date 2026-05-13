@@ -1,41 +1,111 @@
-# Giải thuật Kalman Filter cho Dữ liệu Bus GPS trong Kiến trúc Lakehouse
+# Lọc Nhiễu GPS Bằng Giải Thuật Kalman Filter (Bus GPS Smoothing)
 
-Tài liệu này hướng dẫn cách tiếp cận và hiện thực giải thuật Kalman Filter nhằm làm mượt (smoothing) dữ liệu GPS (tọa độ `x`, `y`) của xe buýt (`BusWayPoint`). Đồng thời, định hướng cách tích hợp quá trình làm mượt này vào kiến trúc Data Lakehouse.
+Tài liệu này chi tiết hóa việc áp dụng giải thuật **Kalman Filter** để xử lý loại bỏ nhiễu (denoising) dữ liệu tọa độ GPS thu thập từ thiết bị giám sát hành trình trên xe buýt.
 
-## 1. Mục tiêu của Kalman Filter đối với Bus GPS
+---
 
-Dữ liệu GPS thu thập từ các xe buýt thường gặp hiện tượng nhiễu (noise) do mất tín hiệu, phản xạ tòa nhà cao tầng, hoặc sai số thiết bị.
-Kalman Filter là một giải thuật tối ưu giúp:
-- **Ước lượng trạng thái (State Estimation)**: Dự đoán vị trí thực tế của xe dựa trên vị trí đo được và vận tốc.
-- **Làm mượt quỹ đạo (Trajectory Smoothing)**: Loại bỏ các điểm GPS bị nhảy vọt (outliers), tạo ra quỹ đạo di chuyển liền mạch.
+## 1. Tại sao cần Kalman Filter?
 
-Trạng thái (State) của xe buýt tại một thời điểm $t$ có thể được mô hình hóa gồm:
-- Vị trí: $x$ (Longitude), $y$ (Latitude)
-- Vận tốc: $v_x$, $v_y$
+Dữ liệu GPS thô (Raw) thường gặp các vấn đề:
+- **Nhiễu ngẫu nhiên**: Sai số vài mét đến hàng chục mét do điều kiện thời tiết, vật cản (nhà cao tầng, cây cối).
+- **Nhảy tọa độ (GPS Jumps)**: Tọa độ bị lệch xa vị trí thực tế trong thời gian ngắn.
+- **Tần suất gửi tin không đều**: Khoảng cách thời gian giữa các gói tin (pings) không cố định.
 
-## 2. Tích hợp Kalman Filter vào Kiến trúc Lakehouse (Medallion Architecture)
+Kalman Filter giúp ước lượng trạng thái thực của xe bằng cách kết hợp **mô hình vật lý** (dự đoán vị trí dựa trên vận tốc) và **dữ liệu đo lường** thực tế.
 
-Trong dự án Lakehouse (sử dụng MinIO + Iceberg + Spark + Gravitino), việc làm mượt dữ liệu qua Kalman Filter sẽ đóng vai trò như một **Data Transformation Step** chuyển đổi từ lớp Bronze sang Silver.
+---
 
-### 2.1. Bronze Layer (Raw Data)
-- **Nguồn:** Dữ liệu streaming từ Kafka (đã được parse từ protobuf `BusWayPoint`).
-- **Lưu trữ:** Apache Iceberg table (ví dụ: `system.bronze.buswaypoint`).
-- **Đặc điểm:** Chứa nguyên bản các tọa độ $x$, $y$, $speed$, và $datetime$ chưa qua xử lý, có thể lẫn nhiễu.
+## 2. Mô hình Toán học (Constant Velocity Model)
 
-### 2.2. Silver Layer (Cleaned & Smoothed Data)
-- **Xử lý:** Một Spark Streaming (Micro-batch) hoặc một Batch Job định kì sẽ đọc dữ liệu từ bảng Bronze, nhóm (group by) theo từng `vehicle` (biển số xe buýt), và sắp xếp theo `datetime`.
-- **Áp dụng Kalman Filter:** Sử dụng **Pandas UDF (Grouped Map)** trong PySpark. Mỗi partition tương ứng với 1 xe sẽ đi qua hàm Kalman Filter của Python (sử dụng thư viện `pykalman` hoặc tự code numpy) để tính toán lại giá trị $x$ và $y$.
-- **Lưu trữ:** Apache Iceberg table (ví dụ: `system.silver.buswaypoint_smoothed`).
-- **Đặc điểm:** Tọa độ GPS đã mượt mà, sẵn sàng phục vụ cho việc tính toán quãng đường, vận tốc trung bình, hoặc hiển thị lên bản đồ (Superset).
+Chúng ta sử dụng mô hình vận tốc không đổi (**Constant Velocity - CV**) để mô tả chuyển động của xe buýt trong không gian 2D (Kinh độ/Vĩ độ hoặc X/Y).
 
-### 2.3. Gold Layer (Analytics & Serving)
-- **Xử lý:** Aggregate dữ liệu từ bảng Silver để tính toán các metric nghiệp vụ (mật độ xe, thời gian kẹt xe, lộ trình di chuyển phổ biến).
-- **Phục vụ (Serving):** Đưa dữ liệu qua Trino để Superset truy vấn, hoặc đưa vào Redis để frontend gọi API real-time.
+### 2.1 Vectơ Trạng thái (State Vector)
+Vectơ trạng thái $\mathbf{x}$ bao gồm vị trí và vận tốc tại thời điểm $k$:
+$$\mathbf{x}_k = [x, y, v_x, v_y]^T$$
+Trong đó:
+- $x, y$: Tọa độ (vị trí).
+- $v_x, v_y$: Vận tốc theo phương x và y.
 
-## 3. Khuyến nghị Kỹ thuật khi triển khai với PySpark
+### 2.2 Ma trận Chuyển đổi Trạng thái (State Transition Matrix - $F$)
+Giả sử giữa hai lần đo lường có khoảng thời gian $\Delta t$ (dt):
+$$F = \begin{bmatrix} 1 & 0 & \Delta t & 0 \\ 0 & 1 & 0 & \Delta t \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
 
-1. **Windowing & Grouping:** Dữ liệu GPS cần được sắp xếp theo thời gian mới có thể chạy Kalman Filter chính xác. Do đó, cần partition data theo `vehicle` và sort theo `datetime`.
-2. **Pandas Pandas UDF (`applyInPandas`):** Vì PySpark thao tác trên các phân tán, ta gom toàn bộ hành trình của một chiếc xe buýt trong khoảng thời gian (ví dụ: 1 giờ hoặc 1 ngày) thành một Pandas DataFrame, sau đó áp dụng thuật toán Kalman Filter cục bộ (local computation) trên DataFrame đó rồi trả về kết quả.
-3. **Thư viện Python:** Cài đặt package `pykalman` (`pip install pykalman`) trên các worker node (hoặc trong image Docker Spark) để tránh tự hard-code ma trận, giảm thiểu lỗi toán học. Hoặc tự implement bằng NumPy để tối ưu dependencies.
+### 2.3 Ma trận Đo lường (Measurement Matrix - $H$)
+Vì thiết bị chỉ cung cấp tọa độ $(x, y)$, ma trận $H$ dùng để trích xuất vị trí từ vectơ trạng thái:
+$$H = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{bmatrix}$$
 
-*(Xem file `notebooks/kalman_filter_bus_gps.ipynb` để tham khảo mã nguồn PySpark)*
+---
+
+## 3. Quản lý Nhiễu (Noise Management)
+
+Đây là phần quan trọng nhất để bộ lọc hoạt động hiệu quả.
+
+### 3.1 Nhiễu Đo lường (Measurement Noise - $R$)
+Đại diện cho sai số của thiết bị GPS. 
+Trong `kalman_filter_demo.py`, $R$ được tính toán động cho từng phương tiện:
+- **Cách tính**: Tìm các đoạn dữ liệu khi xe đang dừng (**speed = 0**) trong ít nhất 10 gói tin liên tiếp.
+- **Giá trị**: Phương sai (variance) của tọa độ $x$ và $y$ trong các đoạn dừng này chính là độ nhiễu thực tế của thiết bị.
+- **Fallback**: Nếu xe không có dữ liệu dừng, sử dụng giá trị trung bình toàn hệ thống (Contingent Variance).
+
+### 3.2 Nhiễu Hệ thống (Process Noise - $Q$)
+Đại diện cho sự không chắc chắn của mô hình vật lý (xe không thực sự đi với vận tốc hằng số, có tăng/giảm tốc).
+Sử dụng mô hình nhiễu gia tốc trắng (**White Noise Acceleration Model**):
+$$Q = G \cdot G^T \cdot \sigma_a^2$$
+Với $\sigma_a^2 = 1.96 \times 10^{-10}$ (phương sai gia tốc giả định cho xe buýt).
+Ma trận $Q$ phụ thuộc vào $\Delta t$:
+$$Q = \sigma_a^2 \begin{bmatrix} \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} & 0 \\ 0 & \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} \\ \frac{\Delta t^3}{2} & 0 & \Delta t^2 & 0 \\ 0 & \frac{\Delta t^3}{2} & 0 & \Delta t^2 \end{bmatrix}$$
+
+---
+
+## 4. Chu trình Thực thi (The Kalman Loop)
+
+Với mỗi gói tin GPS mới, bộ lọc thực hiện 2 bước:
+
+### Bước 1: Dự đoán (Predict)
+Ước lượng trạng thái và độ lỗi dự đoán cho thời điểm hiện tại dựa trên trạng thái trước đó.
+1. Dự đoán trạng thái: $\hat{x}_k^- = F \hat{x}_{k-1}$
+2. Dự đoán hiệp phương sai lỗi: $P_k^- = F P_{k-1} F^T + Q$
+
+### Bước 2: Cập nhật (Update)
+Điều chỉnh dự đoán dựa trên dữ liệu đo lường thực tế ($z_k$).
+1. Tính toán phần dư (Innovation): $y_k = z_k - H \hat{x}_k^-$
+2. Tính toán độ lợi Kalman (Gain): $K_k = P_k^- H^T (H P_k^- H^T + R)^{-1}$
+3. Cập nhật trạng thái tối ưu: $\hat{x}_k = \hat{x}_k^- + K_k y_k$
+4. Cập nhật hiệp phương sai lỗi: $P_k = (I - K_k H) P_k^-$
+
+---
+
+## 5. Kết quả đạt được
+
+- **Làm mịn quỹ đạo**: Loại bỏ các răng cưa khi xe di chuyển trên đường thẳng.
+- **Xử lý mất tín hiệu**: Khi mất GPS trong thời gian ngắn, mô hình dự đoán (CV) vẫn có thể duy trì quỹ đạo ước lượng hợp lý.
+- **Độ chính xác cao hơn**: Vị trí sau khi lọc gần với tim đường (centerline) hơn so với dữ liệu thô.
+
+![Kết quả lọc Kalman GPS](../assets/Kalman_Filter.png)
+
+---
+
+## 6. Vai trò đối với Mô hình AI (Bus-JEPA)
+
+Việc áp dụng Kalman Filter ở tầng Silver đóng vai trò "nền móng" cho việc huấn luyện mô hình **Bus-JEPA**:
+
+- **Ổn định Feature Engineering**: Các đặc trưng vật lý như `delta_x`, `delta_y` và `acceleration` (gia tốc) cực kỳ nhạy cảm với nhiễu tọa độ. Kalman Filter giúp các giá trị này không bị biến động cực đoan do sai số GPS ngẫu nhiên.
+- **Dữ liệu huấn luyện sạch hơn**: Giúp mô hình tập trung học các đặc thù chuyển động thực tế của xe buýt thay vì học cách "bù đắp" cho nhiễu của thiết bị đo.
+- **Tính nhất quán của chuỗi (Sequence Consistency)**: Vì Bus-JEPA học từ các chuỗi (sequences) 10 pings liên tiếp, sự mượt mà giữa các điểm trong chuỗi là yếu tố then chốt để mô hình Encoder trích xuất được không gian ẩn (Latent Space) chất lượng cao.
+
+---
+
+## 7. Tham khảo mã nguồn
+
+Giải thuật này được triển khai và kiểm thử tại các file sau:
+- **Bản Demo (Pandas/Matplotlib)**: [scripts/kalman_filter_demo.py](file:///d:/Projects/mp-252/scripts/kalman_filter_demo.py) - Dùng để nghiên cứu và tinh chỉnh tham số.
+- **Bản Production (PySpark/Pandas UDF)**: [pipelines/silver/silver_buswaypoint.py](file:///d:/Projects/mp-252/pipelines/silver/silver_buswaypoint.py) - Áp dụng trực tiếp vào pipeline xử lý dữ liệu từ Bronze lên Silver.
+
+---
+
+> [!TIP]
+> Để điều chỉnh độ "mượt" của bộ lọc:
+> - Tăng $R$: Tin tưởng vào mô hình hơn (đường đi mượt hơn nhưng phản ứng chậm với thay đổi hướng).
+> - Tăng $\sigma_a^2$ trong $Q$: Tin tưởng vào dữ liệu đo lường hơn (bám sát dữ liệu thô hơn, ít mượt hơn).
+
+
