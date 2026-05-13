@@ -5,7 +5,7 @@ This is a **Multidisciplinary Project (Đồ án đa ngành)** for **Semester 25
 
 The project is conducted under the guidance of **HPCLab** (High Performance Computing Lab) and the **Advanced Institute of Interdisciplinary Science and Technology (iST)** at **HCMUT**.
 
-The primary goal of this project is to build a robust **data pipeline and platform for Bus GPS Streaming**. It utilizes real-time **Bus GPS data from Ho Chi Minh City**, leveraging **streaming data** technologies and a **modern Lakehouse architecture** (Apache Iceberg) to provide high-performance analytics and monitoring.
+The primary goal of this project is to build a robust **data pipeline and platform for Bus GPS Streaming**. It utilizes real-time **Bus GPS data from Ho Chi Minh City**, leveraging **streaming data** technologies, a **modern Lakehouse architecture** (Apache Iceberg), and **AI-driven analytics** (Kalman Filter, JEPA) to provide high-performance monitoring and predictive insights.
 
 ---
 
@@ -48,6 +48,7 @@ The architecture follows a layered approach:
 - **📈 Built-in Monitoring**: Prometheus metrics with Grafana dashboards.
 - **🐳 Fully Dockerized**: One-command deployment with Docker Compose.
 - **🔐 S3-Compatible Storage**: MinIO for cost-effective data lake storage.
+- **🧠 AI-Driven Analytics**: Integrated Kalman Filter for GPS denoising and JEPA (Joint-Embedding Predictive Architecture) for motion representation learning (ETA Prediction).
 
 ---
 
@@ -75,6 +76,7 @@ For deep dives into specific components, please refer to the files in the `docs/
 - [Architecture Deep Dive](./docs/architecture.md)
 - [Deployment Guide](./docs/deploy.md)
 - [Kalman Filter for Bus GPS](./docs/kalman_filter_bus_gps.md)
+- [Bus-JEPA AI Model](./docs/bus_jepa_model.md)
 - [MinIO & Iceberg Lakehouse Setup](./docs/minio_iceberg_gravitino_lakehouse.md)
 - [Redis Serving Layer](./docs/redis_serving_layer.md)
 
