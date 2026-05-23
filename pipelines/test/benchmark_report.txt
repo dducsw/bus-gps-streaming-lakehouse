@@ -1,0 +1,6 @@
+DONE: CASE 1 | Files: -1 | Normal: 8091.39ms | Spatial: 209478.6ms
+
+--- [RESET] Preparing messy state (~1000 files) ---
+DONE: CASE 2 | Files: -1 | Action: 22.65s | Normal: 3106.89ms
+
+--- [RESET] Preparing messy state (~1000 files) ---

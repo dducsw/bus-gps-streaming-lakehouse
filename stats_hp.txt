@@ -1,0 +1,196 @@
+:: loading settings :: url = jar:file:/root/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /root/.ivy2/cache
+The jars for the packages stored in: /root/.ivy2/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-be8965d6-0305-4292-afb4-2a2f14bd81d2;1.0
+	confs: [default]
+	found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.5 in central
+	found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.5 in central
+	found org.apache.kafka#kafka-clients;3.4.1 in central
+	found org.lz4#lz4-java;1.8.0 in central
+	found org.xerial.snappy#snappy-java;1.1.10.5 in central
+	found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+	found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+	found commons-logging#commons-logging;1.1.3 in central
+	found com.google.code.findbugs#jsr305;3.0.0 in central
+	found org.apache.commons#commons-pool2;2.11.1 in central
+:: resolution report :: resolve 864ms :: artifacts dl 31ms
+	:: modules in use:
+	com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+	commons-logging#commons-logging;1.1.3 from central in [default]
+	org.apache.commons#commons-pool2;2.11.1 from central in [default]
+	org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+	org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+	org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+	org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.5 from central in [default]
+	org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.5 from central in [default]
+	org.lz4#lz4-java;1.8.0 from central in [default]
+	org.xerial.snappy#snappy-java;1.1.10.5 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   10  |   0   |   0   |   0   ||   10  |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-be8965d6-0305-4292-afb4-2a2f14bd81d2
+	confs: [default]
+	0 artifacts copied, 10 already retrieved (0kB/17ms)
+26/04/25 03:33:00 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/04/25 03:33:02 INFO SparkContext: Running Spark version 3.5.5
+26/04/25 03:33:02 INFO SparkContext: OS info Linux, 6.8.0-1053-gcp, amd64
+26/04/25 03:33:02 INFO SparkContext: Java version 17.0.18
+26/04/25 03:33:02 INFO ResourceUtils: ==============================================================
+26/04/25 03:33:02 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/04/25 03:33:02 INFO ResourceUtils: ==============================================================
+26/04/25 03:33:02 INFO SparkContext: Submitted application: StatsCollector
+26/04/25 03:33:02 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/04/25 03:33:02 INFO ResourceProfile: Limiting resource is cpu
+26/04/25 03:33:02 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/04/25 03:33:02 INFO SecurityManager: Changing view acls to: root
+26/04/25 03:33:02 INFO SecurityManager: Changing modify acls to: root
+26/04/25 03:33:02 INFO SecurityManager: Changing view acls groups to: 
+26/04/25 03:33:02 INFO SecurityManager: Changing modify acls groups to: 
+26/04/25 03:33:02 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/04/25 03:33:02 INFO Utils: Successfully started service 'sparkDriver' on port 43327.
+26/04/25 03:33:02 INFO SparkEnv: Registering MapOutputTracker
+26/04/25 03:33:02 INFO SparkEnv: Registering BlockManagerMaster
+26/04/25 03:33:02 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/04/25 03:33:02 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/04/25 03:33:02 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/04/25 03:33:02 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-f9af7eb9-a6fe-4d7b-8bf5-0fa409ff27ae
+26/04/25 03:33:02 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/04/25 03:33:02 INFO SparkEnv: Registering OutputCommitCoordinator
+26/04/25 03:33:03 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/04/25 03:33:03 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.5.jar at spark://325c8a076ee1:43327/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.5.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.5.jar at spark://325c8a076ee1:43327/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.5.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://325c8a076ee1:43327/jars/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://325c8a076ee1:43327/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://325c8a076ee1:43327/jars/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://325c8a076ee1:43327/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.lz4_lz4-java-1.8.0.jar at spark://325c8a076ee1:43327/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.xerial.snappy_snappy-java-1.1.10.5.jar at spark://325c8a076ee1:43327/jars/org.xerial.snappy_snappy-java-1.1.10.5.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://325c8a076ee1:43327/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added JAR file:///root/.ivy2/jars/commons-logging_commons-logging-1.1.3.jar at spark://325c8a076ee1:43327/jars/commons-logging_commons-logging-1.1.3.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.5.jar at spark://325c8a076ee1:43327/files/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.5.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.5.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.5.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.5.jar at spark://325c8a076ee1:43327/files/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.5.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.5.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.5.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://325c8a076ee1:43327/files/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.apache.kafka_kafka-clients-3.4.1.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.apache.kafka_kafka-clients-3.4.1.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://325c8a076ee1:43327/files/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/com.google.code.findbugs_jsr305-3.0.0.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://325c8a076ee1:43327/files/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.apache.commons_commons-pool2-2.11.1.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.apache.commons_commons-pool2-2.11.1.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://325c8a076ee1:43327/files/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.lz4_lz4-java-1.8.0.jar at spark://325c8a076ee1:43327/files/org.lz4_lz4-java-1.8.0.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.lz4_lz4-java-1.8.0.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.xerial.snappy_snappy-java-1.1.10.5.jar at spark://325c8a076ee1:43327/files/org.xerial.snappy_snappy-java-1.1.10.5.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.xerial.snappy_snappy-java-1.1.10.5.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.xerial.snappy_snappy-java-1.1.10.5.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://325c8a076ee1:43327/files/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/org.apache.hadoop_hadoop-client-api-3.3.4.jar
+26/04/25 03:33:03 INFO SparkContext: Added file file:///root/.ivy2/jars/commons-logging_commons-logging-1.1.3.jar at spark://325c8a076ee1:43327/files/commons-logging_commons-logging-1.1.3.jar with timestamp 1777087982100
+26/04/25 03:33:03 INFO Utils: Copying /root/.ivy2/jars/commons-logging_commons-logging-1.1.3.jar to /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/userFiles-56232ad9-b865-4b20-a2ce-265a1d021163/commons-logging_commons-logging-1.1.3.jar
+26/04/25 03:33:03 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+26/04/25 03:33:03 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.15:7077 after 46 ms (0 ms spent in bootstraps)
+26/04/25 03:33:03 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20260425033303-0011
+26/04/25 03:33:03 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20260425033303-0011/0 on worker-20260425032134-172.18.0.16-41419 (172.18.0.16:41419) with 4 core(s)
+26/04/25 03:33:03 INFO StandaloneSchedulerBackend: Granted executor ID app-20260425033303-0011/0 on hostPort 172.18.0.16:41419 with 4 core(s), 1024.0 MiB RAM
+26/04/25 03:33:03 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20260425033303-0011/1 on worker-20260425032134-172.18.0.17-33149 (172.18.0.17:33149) with 4 core(s)
+26/04/25 03:33:03 INFO StandaloneSchedulerBackend: Granted executor ID app-20260425033303-0011/1 on hostPort 172.18.0.17:33149 with 4 core(s), 1024.0 MiB RAM
+26/04/25 03:33:03 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 36747.
+26/04/25 03:33:03 INFO NettyBlockTransferService: Server created on 325c8a076ee1:36747
+26/04/25 03:33:03 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/04/25 03:33:03 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 325c8a076ee1, 36747, None)
+26/04/25 03:33:03 INFO BlockManagerMasterEndpoint: Registering block manager 325c8a076ee1:36747 with 434.4 MiB RAM, BlockManagerId(driver, 325c8a076ee1, 36747, None)
+26/04/25 03:33:03 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20260425033303-0011/1 is now RUNNING
+26/04/25 03:33:03 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20260425033303-0011/0 is now RUNNING
+26/04/25 03:33:03 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 325c8a076ee1, 36747, None)
+26/04/25 03:33:03 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 325c8a076ee1, 36747, None)
+26/04/25 03:33:04 INFO SingleEventLogFileWriter: Logging events to file:/opt/spark/spark-events/app-20260425033303-0011.inprogress
+26/04/25 03:33:04 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+26/04/25 03:33:04 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir.
+26/04/25 03:33:04 INFO SharedState: Warehouse path is 'file:/root/spark/spark-warehouse'.
+26/04/25 03:33:07 INFO AuthManagers: Loading AuthManager implementation: org.apache.iceberg.rest.auth.NoopAuthManager
+26/04/25 03:33:08 INFO CatalogUtil: Loading custom FileIO implementation: org.apache.iceberg.aws.s3.S3FileIO
+26/04/25 03:33:10 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (172.18.0.17:47268) with ID 1,  ResourceProfileId 0
+26/04/25 03:33:10 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (172.18.0.16:57044) with ID 0,  ResourceProfileId 0
+26/04/25 03:33:10 INFO BlockManagerMasterEndpoint: Registering block manager 172.18.0.17:39575 with 434.4 MiB RAM, BlockManagerId(1, 172.18.0.17, 39575, None)
+26/04/25 03:33:10 INFO BlockManagerMasterEndpoint: Registering block manager 172.18.0.16:46095 with 434.4 MiB RAM, BlockManagerId(0, 172.18.0.16, 46095, None)
+26/04/25 03:33:10 INFO V2ScanRelationPushDown: 
+Output: record_count#7L
+         
+26/04/25 03:33:10 INFO SnapshotScan: Scanning table catalog_iceberg.bus_bronze.buswaypoint_test snapshot 1078793118867151447 created at 2026-04-25T03:32:14.967+00:00 with filter true
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+26/04/25 03:33:12 INFO SparkPartitioningAwareScan: Reporting UnknownPartitioning with 1 partition(s) for table catalog_iceberg.bus_bronze.buswaypoint_test.files
+26/04/25 03:33:12 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 32.0 KiB, free 434.4 MiB)
+26/04/25 03:33:12 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 4.7 KiB, free 434.4 MiB)
+26/04/25 03:33:13 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 325c8a076ee1:36747 (size: 4.7 KiB, free: 434.4 MiB)
+26/04/25 03:33:13 INFO SparkContext: Created broadcast 0 from collect at /opt/spark/apps/pipelines/test/get_stats.py:16
+26/04/25 03:33:13 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 32.0 KiB, free 434.3 MiB)
+26/04/25 03:33:13 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 4.7 KiB, free 434.3 MiB)
+26/04/25 03:33:13 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 325c8a076ee1:36747 (size: 4.7 KiB, free: 434.4 MiB)
+26/04/25 03:33:13 INFO SparkContext: Created broadcast 1 from collect at /opt/spark/apps/pipelines/test/get_stats.py:16
+26/04/25 03:33:13 INFO CodeGenerator: Code generated in 367.513328 ms
+26/04/25 03:33:14 INFO DAGScheduler: Registering RDD 3 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16) as input to shuffle 0
+26/04/25 03:33:14 INFO DAGScheduler: Got map stage job 0 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16) with 1 output partitions
+26/04/25 03:33:14 INFO DAGScheduler: Final stage: ShuffleMapStage 0 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16)
+26/04/25 03:33:14 INFO DAGScheduler: Parents of final stage: List()
+26/04/25 03:33:14 INFO DAGScheduler: Missing parents: List()
+26/04/25 03:33:14 INFO DAGScheduler: Submitting ShuffleMapStage 0 (MapPartitionsRDD[3] at collect at /opt/spark/apps/pipelines/test/get_stats.py:16), which has no missing parents
+26/04/25 03:33:14 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 16.4 KiB, free 434.3 MiB)
+26/04/25 03:33:14 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 7.2 KiB, free 434.3 MiB)
+26/04/25 03:33:14 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 325c8a076ee1:36747 (size: 7.2 KiB, free: 434.4 MiB)
+26/04/25 03:33:14 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1585
+26/04/25 03:33:14 INFO DAGScheduler: Submitting 1 missing tasks from ShuffleMapStage 0 (MapPartitionsRDD[3] at collect at /opt/spark/apps/pipelines/test/get_stats.py:16) (first 15 tasks are for partitions Vector(0))
+26/04/25 03:33:14 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks resource profile 0
+26/04/25 03:33:14 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (172.18.0.16, executor 0, partition 0, PROCESS_LOCAL, 19811 bytes) 
+26/04/25 03:33:15 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 172.18.0.16:46095 (size: 7.2 KiB, free: 434.4 MiB)
+26/04/25 03:33:16 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.18.0.16:46095 (size: 4.7 KiB, free: 434.4 MiB)
+26/04/25 03:33:18 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 3990 ms on 172.18.0.16 (executor 0) (1/1)
+26/04/25 03:33:18 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+26/04/25 03:33:18 INFO DAGScheduler: ShuffleMapStage 0 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16) finished in 4.168 s
+26/04/25 03:33:18 INFO DAGScheduler: looking for newly runnable stages
+26/04/25 03:33:18 INFO DAGScheduler: running: Set()
+26/04/25 03:33:18 INFO DAGScheduler: waiting: Set()
+26/04/25 03:33:18 INFO DAGScheduler: failed: Set()
+26/04/25 03:33:18 INFO CodeGenerator: Code generated in 28.462138 ms
+26/04/25 03:33:18 INFO SparkContext: Starting job: collect at /opt/spark/apps/pipelines/test/get_stats.py:16
+26/04/25 03:33:18 INFO DAGScheduler: Got job 1 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16) with 1 output partitions
+26/04/25 03:33:18 INFO DAGScheduler: Final stage: ResultStage 2 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16)
+26/04/25 03:33:18 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 1)
+26/04/25 03:33:18 INFO DAGScheduler: Missing parents: List()
+26/04/25 03:33:18 INFO DAGScheduler: Submitting ResultStage 2 (MapPartitionsRDD[6] at collect at /opt/spark/apps/pipelines/test/get_stats.py:16), which has no missing parents
+26/04/25 03:33:18 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 14.3 KiB, free 434.3 MiB)
+26/04/25 03:33:18 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 6.5 KiB, free 434.3 MiB)
+26/04/25 03:33:18 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on 325c8a076ee1:36747 (size: 6.5 KiB, free: 434.4 MiB)
+26/04/25 03:33:18 INFO SparkContext: Created broadcast 3 from broadcast at DAGScheduler.scala:1585
+26/04/25 03:33:18 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 2 (MapPartitionsRDD[6] at collect at /opt/spark/apps/pipelines/test/get_stats.py:16) (first 15 tasks are for partitions Vector(0))
+26/04/25 03:33:18 INFO TaskSchedulerImpl: Adding task set 2.0 with 1 tasks resource profile 0
+26/04/25 03:33:18 INFO TaskSetManager: Starting task 0.0 in stage 2.0 (TID 1) (172.18.0.16, executor 0, partition 0, NODE_LOCAL, 10994 bytes) 
+26/04/25 03:33:18 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on 172.18.0.16:46095 (size: 6.5 KiB, free: 434.4 MiB)
+26/04/25 03:33:18 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 0 to 172.18.0.16:57044
+26/04/25 03:33:18 INFO TaskSetManager: Finished task 0.0 in stage 2.0 (TID 1) in 334 ms on 172.18.0.16 (executor 0) (1/1)
+26/04/25 03:33:18 INFO TaskSchedulerImpl: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+26/04/25 03:33:18 INFO DAGScheduler: ResultStage 2 (collect at /opt/spark/apps/pipelines/test/get_stats.py:16) finished in 0.371 s
+26/04/25 03:33:18 INFO DAGScheduler: Job 1 is finished. Cancelling potential speculative or zombie tasks for this job
+26/04/25 03:33:18 INFO TaskSchedulerImpl: Killing all running tasks in stage 2: Stage finished
+26/04/25 03:33:18 INFO DAGScheduler: Job 1 finished: collect at /opt/spark/apps/pipelines/test/get_stats.py:16, took 0.419162 s
+FILE_COUNT:33 | TOTAL_RECORDS:71477349
+26/04/25 03:33:19 INFO SparkContext: SparkContext is stopping with exitCode 0.
+26/04/25 03:33:19 INFO SparkUI: Stopped Spark web UI at http://325c8a076ee1:4040
+26/04/25 03:33:19 INFO StandaloneSchedulerBackend: Shutting down all executors
+26/04/25 03:33:19 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Asking each executor to shut down
+26/04/25 03:33:19 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+26/04/25 03:33:19 INFO MemoryStore: MemoryStore cleared
+26/04/25 03:33:19 INFO BlockManager: BlockManager stopped
+26/04/25 03:33:19 INFO BlockManagerMaster: BlockManagerMaster stopped
+26/04/25 03:33:19 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+26/04/25 03:33:19 INFO SparkContext: Successfully stopped SparkContext
+26/04/25 03:33:19 INFO ShutdownHookManager: Shutdown hook called
+26/04/25 03:33:19 INFO ShutdownHookManager: Deleting directory /tmp/spark-a537f8ec-d012-46d5-a4ce-d90e04c85135
+26/04/25 03:33:19 INFO ShutdownHookManager: Deleting directory /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce
+26/04/25 03:33:19 INFO ShutdownHookManager: Deleting directory /tmp/spark-cf863eab-082d-4475-845c-7e416b049bce/pyspark-345f1658-a409-4d49-af27-1679ca0f939e

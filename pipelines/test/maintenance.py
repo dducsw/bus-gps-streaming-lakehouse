@@ -4,16 +4,30 @@ import sys
 def run_full_maintenance(spark: SparkSession, table_name: str):
     print(f"--- Starting Full Maintenance for: {table_name} ---")
     
-    print("Step 1: Rewriting data files (Compaction)...")
-    spark.sql(f"CALL catalog_iceberg.system.rewrite_data_files('{table_name}')")
+    # Configuration matches pipelines/maintenance/iceberg_maintenance.py
+    MIN_SIZE = 3 * 1024 * 1024       # 3MB
+    TARGET_SIZE = 64 * 1024 * 1024   # 64MB
+    MAX_SIZE = 128 * 1024 * 1024     # 128MB
+
+    print(f"Step 1: Rewriting data files (Compaction to {TARGET_SIZE/1024/1024}MB)...")
+    spark.sql(f"""
+        CALL catalog_iceberg.system.rewrite_data_files(
+            table => '{table_name}',
+            options => map(
+                'min-file-size-bytes', '{MIN_SIZE}',
+                'target-file-size-bytes', '{TARGET_SIZE}',
+                'max-file-size-bytes', '{MAX_SIZE}'
+            )
+        )
+    """)
     
     print("Step 2: Rewriting manifest files...")
     spark.sql(f"CALL catalog_iceberg.system.rewrite_manifests('{table_name}')")
     
-    print("Step 3: Expiring old snapshots...")
-    spark.sql(f"CALL catalog_iceberg.system.expire_snapshots('{table_name}')")
+    print("Step 3: Expiring old snapshots (Retaining last 3)...")
+    spark.sql(f"CALL catalog_iceberg.system.expire_snapshots(table => '{table_name}', retain_last => 3)")
     
-    print("Step 4: Removing orphan files (Physical storage cleanup)...")
+    print("Step 4: Removing orphan files...")
     spark.sql(f"CALL catalog_iceberg.system.remove_orphan_files(table => '{table_name}')")
     
     print("--- Full Maintenance Completed Successfully! ---")
