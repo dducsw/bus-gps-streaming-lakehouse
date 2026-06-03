@@ -104,16 +104,47 @@ def build_long_stop_sessions(df_bw):
 
 def detect_terminal_candidates(df_long_stops):
     w_stop_id = Window.partitionBy("route_id").orderBy("vehicle", "stop_session_id")
+    
+    GRID_SIZE_DEG = 0.0025
 
-    df_points = df_long_stops.withColumn("stop_id", row_number().over(w_stop_id)).cache()
+    # 1. Map coordinates of stop points to discrete grid cells
+    df_points = (
+        df_long_stops
+        .withColumn("stop_id", row_number().over(w_stop_id))
+        .withColumn("grid_lat", (col("stop_lat") / lit(GRID_SIZE_DEG)).cast("int"))
+        .withColumn("grid_lng", (col("stop_lng") / lit(GRID_SIZE_DEG)).cast("int"))
+    ).cache()
 
-    a = df_points.alias("a")
+    # 2. Explode the 9 surrounding cells for anchor points (a)
+    offsets = []
+    for dl in [-1, 0, 1]:
+        for dg in [-1, 0, 1]:
+            offsets.append((dl, dg))
+
+    from pyspark.sql.functions import array, struct, explode
+    offset_expr = array([
+        struct(lit(dl).alias("dl"), lit(dg).alias("dg")) 
+        for dl, dg in offsets
+    ])
+
+    a_exploded = (
+        df_points
+        .withColumn("offset", explode(offset_expr))
+        .withColumn("neighbor_grid_lat", col("grid_lat") + col("offset.dl"))
+        .withColumn("neighbor_grid_lng", col("grid_lng") + col("offset.dg"))
+        .drop("offset")
+        .alias("a")
+    )
+
+    # 3. Equi-join on route_id and grid cells, followed by a distance filter
     b = df_points.alias("b")
 
     neighbors = (
-        a.join(
+        a_exploded.join(
             b,
             (col("a.route_id") == col("b.route_id"))
+            & (col("a.neighbor_grid_lat") == col("b.grid_lat"))
+            & (col("a.neighbor_grid_lng") == col("b.grid_lng"))
             & (
                 haversine(
                     col("a.stop_lat"),
@@ -140,9 +171,12 @@ def detect_terminal_candidates(df_long_stops):
     )
 
     w_dense = Window.partitionBy("route_id").orderBy(col("density").desc(), col("anchor_id").asc())
-    return clusters.withColumn("dense_rank", row_number().over(w_dense)).filter(
+    
+    result_df = clusters.withColumn("dense_rank", row_number().over(w_dense)).filter(
         col("dense_rank") <= lit(TOP_DENSE_CANDIDATES)
     )
+    
+    return result_df, df_points
 
 
 def pick_terminal_pair(df_candidates):
@@ -200,9 +234,7 @@ def main():
     df_bw = spark.read.table(SOURCE_TABLE).filter(col("date") == lit(PROCESS_DATE))
     df_long_stops = build_long_stop_sessions(df_bw)
 
-
-    df_candidates = detect_terminal_candidates(df_long_stops)
-
+    df_candidates, cached_points = detect_terminal_candidates(df_long_stops)
 
     df_terminals = pick_terminal_pair(df_candidates)
 
@@ -239,6 +271,9 @@ def main():
             print("[SUCCESS] Data written using alternative method")
         except Exception as e2:
             print(f"[ERROR] Alternative write also failed: {str(e2)}")
+    finally:
+        # Clean up cache
+        cached_points.unpersist()
 
     try:
         result = spark.sql(f"SELECT COUNT(*) as row_count FROM {TARGET_TABLE}").collect()

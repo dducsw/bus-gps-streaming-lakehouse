@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, current_timestamp
+from pyspark.sql.functions import col, current_timestamp, abs as spark_abs, hash as spark_hash
 from pyspark.sql.types import (
     DoubleType,
     IntegerType,
@@ -136,21 +136,22 @@ def main():
         df.groupBy("vehicle")
         .applyInPandas(build_sequences, schema=_SEQUENCE_SCHEMA)
         .withColumn("updated_at", current_timestamp())
+        .withColumn("vehicle_bucket", spark_abs(spark_hash(col("vehicle"))) % 50)
     )
 
     # -------------------------------------------------------------------------
-    # 4. Write sequences as Parquet on MinIO
-    #    — partitioned by vehicle so BusStreamingDataset can shard across workers
+    # 4. Write sequences as Parquet on MinIO using bucket-partitioning to avoid
+    #    small file metadata overhead on object storage (MinIO).
     # -------------------------------------------------------------------------
     (
         df_sequences
-        .repartition(col("vehicle"))
+        .repartition(50, col("vehicle_bucket"))
         .write
         .mode("overwrite")
-        .partitionBy("vehicle")
+        .partitionBy("vehicle_bucket")
         .parquet(OUTPUT_PATH)
     )
-    print(f"WRITE jepa_sequences SUCCESS → {OUTPUT_PATH}")
+    print(f"WRITE jepa_sequences SUCCESS (Bucket-Partitioned) → {OUTPUT_PATH}")
 
     # -------------------------------------------------------------------------
     # 5. Persist Route Vocabulary as JSON alongside sequences
