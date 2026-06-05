@@ -11,9 +11,9 @@ sys.path.insert(0, "/opt/spark/apps/pipelines/silver")
 
 from kalman_filter import RedisBackedKalmanFilter
 
-from pyspark.sql import SparkSession, Window
+from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
-    col, to_date, hour, row_number, current_timestamp, broadcast
+    col, to_date, hour, current_timestamp, broadcast
 )
 
 REDIS_HOST = os.getenv("REDIS_HOST", "redis")
@@ -57,28 +57,28 @@ def main():
     # Read Bronze data as streaming source from Iceberg
     df_bus = spark.readStream.format("iceberg").table("catalog_iceberg.bus_bronze.bus_way_point")
     
+    # Stateful deduplication on the streaming raw DataFrame
+    df_bus_dedup = (
+        df_bus
+        .withWatermark("timestamp", "15 minutes")
+        .dropDuplicates(["vehicle", "timestamp"])
+    )
+    
     # Read mapping table (static dimension)
     df_map = spark.read.table("catalog_iceberg.bus_bronze.vehicle_bus_mapping")
 
-    # Join streaming raw waypoints with static vehicle mapping
-    df_join = df_bus.join(broadcast(df_map), on="vehicle", how="left")
+    # Join streaming deduplicated waypoints with static vehicle mapping
+    df_join = df_bus_dedup.join(broadcast(df_map), on="vehicle", how="left")
 
     def write_cleaned_batch(batch_df, batch_id):
         print(f"[Batch {batch_id}] Processing streaming batch to Silver...", flush=True)
 
-        # Step 1: Deduplicate within the micro-batch
-        window_spec = Window.partitionBy("vehicle", "timestamp").orderBy(col("load_at").desc())
-
-        df_filtered = (
-            batch_df.filter(
-                col("vehicle").isNotNull() & 
-                col("timestamp").isNotNull() & 
-                col("x").isNotNull() & (col("x") != 0) & 
-                col("y").isNotNull() & (col("y") != 0)
-            )
-            .withColumn("rn", row_number().over(window_spec))
-            .filter(col("rn") == 1)
-            .drop("rn")
+        # Step 1: Filter nulls and zero coordinates (deduplication already handled by streaming engine)
+        df_filtered = batch_df.filter(
+            col("vehicle").isNotNull() & 
+            col("timestamp").isNotNull() & 
+            col("x").isNotNull() & (col("x") != 0) & 
+            col("y").isNotNull() & (col("y") != 0)
         )
 
         # Step 2: Apply Redis-Backed Kalman filter

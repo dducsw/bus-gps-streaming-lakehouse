@@ -21,7 +21,13 @@ def main():
             col("RouteVarId").cast("int"),
             col("RouteVarName").cast("string"),
             col("Outbound").cast("boolean"),
-            col("Path").alias("path")
+            expr("""
+                CASE 
+                    WHEN RouteId = 1 AND RouteVarId = 1 THEN concat(array(array(106.6983, 10.7716)), slice(Path, 2, size(Path)))
+                    WHEN RouteId = 1 AND RouteVarId = 2 THEN concat(slice(Path, 1, size(Path) - 1), array(array(106.6983, 10.7716)))
+                    ELSE Path
+                END
+            """).alias("path")
         )
         .dropDuplicates(["RouteId", "RouteVarId", "Outbound"])
         .withColumn("updated_at", current_timestamp())
