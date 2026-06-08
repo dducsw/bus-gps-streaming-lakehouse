@@ -13,7 +13,7 @@ from kalman_filter import RedisBackedKalmanFilter
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
-    col, to_date, hour, current_timestamp, broadcast
+    col, to_date, hour, current_timestamp, broadcast, from_utc_timestamp
 )
 
 REDIS_HOST = os.getenv("REDIS_HOST", "redis")
@@ -89,8 +89,10 @@ def main():
 
         # Step 3: Add time details and sort within partitions
         df_clean = (
-            df_kalman.withColumn("date", to_date(col("timestamp")))
-            .withColumn("hour", hour(col("timestamp")))
+            df_kalman.withColumn("ts_vn", from_utc_timestamp(col("timestamp"), "Asia/Ho_Chi_Minh"))
+            .withColumn("date", to_date(col("ts_vn")))
+            .withColumn("hour", hour(col("ts_vn")))
+            .drop("ts_vn")
             .withColumn("updated_at", current_timestamp())
             .select(
                 "vehicle",

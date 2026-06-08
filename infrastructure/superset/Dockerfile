@@ -2,10 +2,10 @@ FROM apache/superset:latest
 
 USER root
 
-RUN /app/.venv/bin/python -m ensurepip --upgrade && \
-    /app/.venv/bin/python -m pip install --no-cache-dir \
+RUN pip install --no-cache-dir --target /app/.venv/lib/python3.10/site-packages \
     "trino[sqlalchemy]==0.328.0" \
-    "sqlalchemy-trino==0.5.0"
+    "sqlalchemy-trino==0.5.0" \
+    "psycopg2-binary==2.9.9"
 
 RUN mkdir -p /app/superset_home && \
     chown -R superset:superset /app/superset_home && \

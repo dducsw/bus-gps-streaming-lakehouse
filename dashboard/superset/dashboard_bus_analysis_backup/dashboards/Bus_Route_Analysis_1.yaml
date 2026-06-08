@@ -1,0 +1,956 @@
+dashboard_title: Bus Route Analysis
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: true
+uuid: bdbe2ce4-09f5-4064-8140-75a722e98578
+position:
+  CHART-explore-11-1:
+    children: []
+    id: CHART-explore-11-1
+    meta:
+      chartId: 11
+      height: 50
+      sliceName: Tổng số chuyến hoạt động
+      sliceNameOverride: Tuyến xe hoạt động
+      uuid: a4c163f6-6dda-4661-ac4c-33122fc50243
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-PXWsSKFUGak4SXUozP6kP
+    type: CHART
+  CHART-explore-12-1:
+    children: []
+    id: CHART-explore-12-1
+    meta:
+      chartId: 12
+      height: 50
+      sliceName: Tổng số chuyến
+      uuid: 12e9998f-3aee-4c7a-a012-482ab1e90608
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-PXWsSKFUGak4SXUozP6kP
+    type: CHART
+  CHART-explore-13-1:
+    children: []
+    id: CHART-explore-13-1
+    meta:
+      chartId: 13
+      height: 50
+      sliceName: Xe đang vận hành
+      sliceNameOverride: Tổng số xe vận hành
+      uuid: 26ee227b-72ee-4791-9ba2-c345d6488207
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-PXWsSKFUGak4SXUozP6kP
+    type: CHART
+  CHART-explore-14-1:
+    children: []
+    id: CHART-explore-14-1
+    meta:
+      chartId: 14
+      height: 66
+      sliceName: Chuyến xe hoàn thành theo tuyến
+      uuid: 2cfab440-dcb3-4c77-a779-c95c88550cee
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-9K-JJopnCWAnVoSmgAil_
+    - ROW-icccyY4QxHflwPk1Kd4GU
+    type: CHART
+  CHART-explore-15-1:
+    children: []
+    id: CHART-explore-15-1
+    meta:
+      chartId: 15
+      height: 66
+      sliceName: Mật độ xe di chuyển theo giờ
+      uuid: eaa897b8-d5a0-42e6-a6db-9ce90ddc2212
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-9K-JJopnCWAnVoSmgAil_
+    - ROW-icccyY4QxHflwPk1Kd4GU
+    type: CHART
+  CHART-explore-16-1:
+    children: []
+    id: CHART-explore-16-1
+    meta:
+      chartId: 16
+      height: 69
+      sliceName: Thông tin tổng quan
+      uuid: 76093311-98fc-4483-9b0d-48fd7f4e9bff
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-VCxOtlUQwpJ_DugJa9QwV
+    type: CHART
+  CHART-explore-17-1:
+    children: []
+    id: CHART-explore-17-1
+    meta:
+      chartId: 17
+      height: 63
+      sliceName: So sánh phân bố thời gian di chuyển
+      uuid: e6d4c63b-3c30-4e55-b8f3-2922d8c8a26a
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-xyd85IuH54HqXDEY5TMUC
+    - ROW-6N2AsJcvKmUJffuiSkTyU
+    type: CHART
+  CHART-explore-19-1:
+    children: []
+    id: CHART-explore-19-1
+    meta:
+      chartId: 19
+      height: 63
+      sliceName: 'Mật độ xe theo giờ '
+      uuid: 3795d0a2-7079-40bf-b1f5-c4919fd6a789
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-xyd85IuH54HqXDEY5TMUC
+    - ROW-6N2AsJcvKmUJffuiSkTyU
+    type: CHART
+  CHART-explore-20-1:
+    children: []
+    id: CHART-explore-20-1
+    meta:
+      chartId: 20
+      height: 50
+      sliceName: Tỉ lệ hoàn thành tuyến
+      uuid: 213f8b97-cbfc-4ca9-b428-fa5feabdc131
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-PXWsSKFUGak4SXUozP6kP
+    type: CHART
+  CHART-explore-21-1:
+    children: []
+    id: CHART-explore-21-1
+    meta:
+      chartId: 21
+      height: 61
+      sliceName: So sánh theo giờ
+      uuid: dceef4f8-94dc-4502-9b00-60d3b4c47a99
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-pOULxE0dawzAFLS6ByqoY
+    - ROW-bEGmrZczTWsJsKobBvyj2
+    type: CHART
+  CHART-explore-22-1:
+    children: []
+    id: CHART-explore-22-1
+    meta:
+      chartId: 22
+      height: 62
+      sliceName: Phân bố thời gian chuyến
+      uuid: 194c615d-44f3-49a8-9eb3-20fefd729d45
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-pOULxE0dawzAFLS6ByqoY
+    - ROW-bEGmrZczTWsJsKobBvyj2
+    type: CHART
+  CHART-explore-23-1:
+    children: []
+    id: CHART-explore-23-1
+    meta:
+      chartId: 23
+      height: 61
+      sliceName: Lượng xe giữa 2 chiều
+      uuid: 8cd7d432-f23e-4a1f-92b2-8262cdd40118
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-pOULxE0dawzAFLS6ByqoY
+    - ROW-bEGmrZczTWsJsKobBvyj2
+    type: CHART
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-PXWsSKFUGak4SXUozP6kP
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - ROW-VCxOtlUQwpJ_DugJa9QwV
+    - ROW-N-JDKYBJKC
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Thông tin tổng quan
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-6N2AsJcvKmUJffuiSkTyU:
+    children:
+    - CHART-explore-17-1
+    - CHART-explore-19-1
+    id: ROW-6N2AsJcvKmUJffuiSkTyU
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-xyd85IuH54HqXDEY5TMUC
+    type: ROW
+  ROW-PXWsSKFUGak4SXUozP6kP:
+    children:
+    - CHART-explore-11-1
+    - CHART-explore-12-1
+    - CHART-explore-13-1
+    - CHART-explore-20-1
+    id: ROW-PXWsSKFUGak4SXUozP6kP
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  ROW-VCxOtlUQwpJ_DugJa9QwV:
+    children:
+    - CHART-explore-16-1
+    id: ROW-VCxOtlUQwpJ_DugJa9QwV
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  ROW-bEGmrZczTWsJsKobBvyj2:
+    children:
+    - CHART-explore-21-1
+    - CHART-explore-22-1
+    - CHART-explore-23-1
+    id: ROW-bEGmrZczTWsJsKobBvyj2
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-pOULxE0dawzAFLS6ByqoY
+    type: ROW
+  ROW-icccyY4QxHflwPk1Kd4GU:
+    children:
+    - CHART-explore-14-1
+    - CHART-explore-15-1
+    id: ROW-icccyY4QxHflwPk1Kd4GU
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-9K-JJopnCWAnVoSmgAil_
+    type: ROW
+  TAB-9K-JJopnCWAnVoSmgAil_:
+    children:
+    - ROW-icccyY4QxHflwPk1Kd4GU
+    id: TAB-9K-JJopnCWAnVoSmgAil_
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Tổng quan
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    type: TAB
+  TAB-pOULxE0dawzAFLS6ByqoY:
+    children:
+    - ROW-bEGmrZczTWsJsKobBvyj2
+    id: TAB-pOULxE0dawzAFLS6ByqoY
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Lượng xe giữa 2 chiều
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    type: TAB
+  TAB-xyd85IuH54HqXDEY5TMUC:
+    children:
+    - ROW-6N2AsJcvKmUJffuiSkTyU
+    id: TAB-xyd85IuH54HqXDEY5TMUC
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: So sánh
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    type: TAB
+  TABS-61vHnX36DRWjF8gygSpvm:
+    children:
+    - TAB-9K-JJopnCWAnVoSmgAil_
+    - TAB-pOULxE0dawzAFLS6ByqoY
+    - TAB-xyd85IuH54HqXDEY5TMUC
+    - TAB-bus-gps-v2
+    id: TABS-61vHnX36DRWjF8gygSpvm
+    meta: {}
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: TABS
+  ROW-N-JDKYBJKC:
+    children:
+    - CHART-XN5QWT7N
+    id: ROW-N-JDKYBJKC
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-XN5QWT7N:
+    children: []
+    id: CHART-XN5QWT7N
+    meta:
+      chartId: 1
+      height: 50
+      sliceName: number of route
+      uuid: b8ec070d-078b-4260-a701-ea6520d52a77
+      width: 12
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-JDKYBJKC
+  TAB-bus-gps-v2:
+    children:
+    - ROW-qb8IWeCDdUseCBrJHVXr6
+    - ROW-APUAFe9XEODUY9LOSEbST
+    - ROW-mo9xJLxdnyGTUAzqOiMVN
+    - ROW-ykNm3P1vT80y9FD0YJreu
+    id: TAB-bus-gps-v2
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Phân tích vận hành (GPS)
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    type: TAB
+  ROW-qb8IWeCDdUseCBrJHVXr6:
+    children:
+    - CHART-explore-10-1
+    - CHART-explore-2-1
+    - CHART-explore-5-1
+    - CHART-explore-4-1
+    id: ROW-qb8IWeCDdUseCBrJHVXr6
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    type: ROW
+  CHART-explore-10-1:
+    children: []
+    id: CHART-explore-10-1
+    meta:
+      chartId: 10
+      height: 50
+      sliceName: Active bus
+      uuid: 9a2f800c-8b27-4127-bb39-b3a3a9c275b0
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-qb8IWeCDdUseCBrJHVXr6
+    type: CHART
+  CHART-explore-2-1:
+    children: []
+    id: CHART-explore-2-1
+    meta:
+      chartId: 2
+      height: 50
+      sliceName: Route no
+      uuid: 5a983579-536f-400d-9012-7e730cb104b0
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-qb8IWeCDdUseCBrJHVXr6
+    type: CHART
+  CHART-explore-5-1:
+    children: []
+    id: CHART-explore-5-1
+    meta:
+      chartId: 5
+      height: 50
+      sliceName: Average speed
+      uuid: 947aa066-3866-447f-bf42-0ab533b109d5
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-qb8IWeCDdUseCBrJHVXr6
+    type: CHART
+  CHART-explore-4-1:
+    children: []
+    id: CHART-explore-4-1
+    meta:
+      chartId: 4
+      height: 50
+      sliceName: Max speed
+      uuid: bc3d0a6e-7d1a-4631-9c91-6d952ee852ba
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-qb8IWeCDdUseCBrJHVXr6
+    type: CHART
+  ROW-APUAFe9XEODUY9LOSEbST:
+    children:
+    - CHART-explore-6-1
+    id: ROW-APUAFe9XEODUY9LOSEbST
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    type: ROW
+  CHART-explore-6-1:
+    children: []
+    id: CHART-explore-6-1
+    meta:
+      chartId: 6
+      height: 69
+      sliceName: Active bus
+      uuid: 4c7437d2-0773-4947-a85a-cf63a577088c
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-APUAFe9XEODUY9LOSEbST
+    type: CHART
+  ROW-mo9xJLxdnyGTUAzqOiMVN:
+    children:
+    - CHART-explore-7-1
+    - CHART-explore-8-1
+    - CHART-explore-9-1
+    id: ROW-mo9xJLxdnyGTUAzqOiMVN
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    type: ROW
+  CHART-explore-7-1:
+    children: []
+    id: CHART-explore-7-1
+    meta:
+      chartId: 7
+      height: 50
+      sliceName: Active bus chart
+      uuid: 3056d7db-bd14-42eb-af19-4386e835cb8d
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-mo9xJLxdnyGTUAzqOiMVN
+    type: CHART
+  CHART-explore-8-1:
+    children: []
+    id: CHART-explore-8-1
+    meta:
+      chartId: 8
+      height: 50
+      sliceName: Speed level
+      uuid: 2f46a606-8993-49fa-8030-eebcf6af4e17
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-mo9xJLxdnyGTUAzqOiMVN
+    type: CHART
+  CHART-explore-9-1:
+    children: []
+    id: CHART-explore-9-1
+    meta:
+      chartId: 9
+      height: 50
+      sliceName: Average speed
+      uuid: 4e94e6da-5614-4559-af90-9f3d37f7bb56
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-mo9xJLxdnyGTUAzqOiMVN
+    type: CHART
+  ROW-ykNm3P1vT80y9FD0YJreu:
+    children:
+    - CHART-explore-3-1
+    id: ROW-ykNm3P1vT80y9FD0YJreu
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    type: ROW
+  CHART-explore-3-1:
+    children: []
+    id: CHART-explore-3-1
+    meta:
+      chartId: 3
+      height: 61
+      sliceName: Bus information
+      uuid: 09eb4b86-fded-42b3-b181-d292691492de
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-61vHnX36DRWjF8gygSpvm
+    - TAB-bus-gps-v2
+    - ROW-ykNm3P1vT80y9FD0YJreu
+    type: CHART
+metadata:
+  color_scheme_domain: []
+  shared_label_colors:
+  - '148'
+  - '151'
+  - '152'
+  map_label_colors:
+    '148': '#1FA8C9'
+    '151': '#454E7C'
+    '152': '#5AC189'
+  label_colors: {}
+  chart_configuration:
+    '14':
+      id: 14
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 15
+        - 16
+        - 17
+        - 19
+        - 20
+        - 21
+        - 22
+        - 23
+    '15':
+      id: 15
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 16
+        - 17
+        - 19
+        - 20
+        - 21
+        - 22
+        - 23
+    '16':
+      id: 16
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 17
+        - 19
+        - 20
+        - 21
+        - 22
+        - 23
+    '17':
+      id: 17
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 19
+        - 20
+        - 21
+        - 22
+        - 23
+    '19':
+      id: 19
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 20
+        - 21
+        - 22
+        - 23
+    '21':
+      id: 21
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 19
+        - 20
+        - 22
+        - 23
+    '22':
+      id: 22
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 19
+        - 20
+        - 21
+        - 23
+    '23':
+      id: 23
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 19
+        - 20
+        - 21
+        - 22
+    '3':
+      id: 3
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 10
+        - 2
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+    '6':
+      id: 6
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 10
+        - 2
+        - 3
+        - 4
+        - 5
+        - 7
+        - 8
+        - 9
+    '7':
+      id: 7
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 10
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 8
+        - 9
+    '8':
+      id: 8
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 10
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 9
+    '9':
+      id: 9
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 10
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 19
+    - 20
+    - 21
+    - 22
+    - 23
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+  color_scheme: ''
+  refresh_frequency: 0
+  expanded_slices: {}
+  timed_refresh_immune_slices: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+  native_filter_configuration:
+  - id: NATIVE_FILTER-bWuurmqAxSlJD6xxxkHvd
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      creatable: true
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: 'Chọn tuyến xe:'
+    filterType: filter_select
+    targets:
+    - column:
+        name: route_no
+      datasetUuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
+    - column:
+        name: route_no
+      datasetUuid: 66001989-e88d-4d5a-b893-a48af89419fd
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    type: NATIVE_FILTER
+    description: ''
+    chartsInScope:
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    tabsInScope: []
+  - id: NATIVE_FILTER-PCSc47PlZ2CcfVfAS7vgu
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      creatable: true
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Chọn chiều
+    filterType: filter_select
+    targets:
+    - column:
+        name: direction
+      datasetUuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    type: NATIVE_FILTER
+    description: ''
+    chartsInScope:
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 1
+    tabsInScope: []
+  - id: NATIVE_FILTER-DateFilter
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      creatable: true
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Chọn ngày
+    filterType: filter_time
+    targets:
+    - column:
+        name: date
+      datasetUuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
+    - column:
+        name: date
+      datasetUuid: 66001989-e88d-4d5a-b893-a48af89419fd
+    defaultDataMask:
+      extraFormData:
+        time_range: Last 30 days
+      filterState:
+        label: Last 30 days
+        value: Last 30 days
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    type: NATIVE_FILTER
+    description: ''
+    chartsInScope:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 19
+    - 20
+    - 21
+    - 22
+    - 23
+    tabsInScope: []
+theme_uuid: null
+version: 1.0.0

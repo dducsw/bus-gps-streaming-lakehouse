@@ -157,6 +157,18 @@ def main():
     # 5. Persist Route Vocabulary as JSON alongside sequences
     #    (notebook: route_to_idx dict passed to BusStreamingDataset)
     # -------------------------------------------------------------------------
+    # Delete the path if it already exists to avoid FileAlreadyExistsException
+    try:
+        hadoop_conf = spark._jsc.hadoopConfiguration()
+        Path = spark._jvm.org.apache.hadoop.fs.Path
+        FileSystem = spark._jvm.org.apache.hadoop.fs.FileSystem
+        path = Path(VOCAB_PATH)
+        fs = FileSystem.get(path.toUri(), hadoop_conf)
+        if fs.exists(path):
+            fs.delete(path, True)
+    except Exception as e:
+        print(f"Warning: Failed to delete existing vocabulary path: {e}")
+
     vocab_rdd = spark.sparkContext.parallelize([json.dumps(route_vocab)])
     vocab_rdd.coalesce(1).saveAsTextFile(VOCAB_PATH)
     print(f"WRITE route_vocab SUCCESS → {VOCAB_PATH}")

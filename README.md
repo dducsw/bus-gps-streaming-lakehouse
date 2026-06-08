@@ -79,6 +79,7 @@ For deep dives into specific components, please refer to the files in the `docs/
 - [Bus-JEPA AI Model](./docs/bus_jepa_model.md)
 - [MinIO & Iceberg Lakehouse Setup](./docs/minio_iceberg_gravitino_lakehouse.md)
 - [Redis Serving Layer](./docs/redis_serving_layer.md)
+- [Streaming Benchmark Guide](./docs/streaming_benchmark_guide.md)
 
 ### 📂 Sub-module Readmes
 - [Infrastructure Setup](./infrastructure/README.md)

@@ -1,0 +1,15 @@
+database_name: Lakehouse
+sqlalchemy_uri: trino://admin@trino:8080/catalog_iceberg
+cache_timeout: null
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  allows_virtual_table_explore: true
+impersonate_user: false
+configuration_method: sqlalchemy_form
+uuid: 124e7ab5-39a6-4276-8f5d-cb99b0f793a5
+version: 1.0.0

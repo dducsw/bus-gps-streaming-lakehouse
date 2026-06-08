@@ -1,0 +1,28 @@
+slice_name: Tổng số chuyến xe
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  slice_id: 101
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(trip_id)
+    column: null
+    aggregate: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: COUNT(trip_id)
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  header_font_size: 0.4
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  y_axis_format: SMART_NUMBER
+  time_format: smart_date
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43101
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36

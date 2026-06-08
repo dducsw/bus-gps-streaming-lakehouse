@@ -1,0 +1,58 @@
+slice_name: "T\u1ED5ng s\u1ED1 chuy\u1EBFn ho\u1EA1t \u0111\u1ED9ng"
+description: null
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 5__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SIMPLE
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: route_no
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 53
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: column
+      type_generic: 1
+      uuid: 23eed3f5-919d-4154-a5ef-09fb0ec80040
+      verbose_name: null
+      warning_markdown: null
+    aggregate: COUNT_DISTINCT
+    sqlExpression: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: COUNT_DISTINCT(route_no)
+    optionName: metric_2ypf773m95j_bjr1k7iw7da
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  header_font_size: 0.4
+  subtitle: ''
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  y_axis_format: SMART_NUMBER
+  time_format: smart_date
+  force_timestamp_formatting: false
+  conditional_formatting: []
+  extra_form_data: {}
+  dashboards:
+  - 2
+query_context: '{"datasource":{"id":5,"type":"table"},"force":false,"queries":[{"filters":[{"col":"date","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"route_no","description":null,"expression":null,"filterable":true,"groupby":true,"id":53,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":1,"uuid":"23eed3f5-919d-4154-a5ef-09fb0ec80040","verbose_name":null,"warning_markdown":null},"aggregate":"COUNT_DISTINCT","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"COUNT_DISTINCT(route_no)","optionName":"metric_2ypf773m95j_bjr1k7iw7da"}],"annotation_layers":[],"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"5__table","viz_type":"big_number_total","metric":{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"route_no","description":null,"expression":null,"filterable":true,"groupby":true,"id":53,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":1,"uuid":"23eed3f5-919d-4154-a5ef-09fb0ec80040","verbose_name":null,"warning_markdown":null},"aggregate":"COUNT_DISTINCT","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"COUNT_DISTINCT(route_no)","optionName":"metric_2ypf773m95j_bjr1k7iw7da"},"adhoc_filters":[{"clause":"WHERE","subject":"date","operator":"TEMPORAL_RANGE","comparator":"No
+  filter","expressionType":"SIMPLE"}],"header_font_size":0.4,"subtitle":"","subtitle_font_size":0.15,"show_metric_name":false,"y_axis_format":"SMART_NUMBER","time_format":"smart_date","force_timestamp_formatting":false,"conditional_formatting":[],"extra_form_data":{},"dashboards":[2],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: a4c163f6-6dda-4661-ac4c-33122fc50243
+version: 1.0.0
+dataset_uuid: 2f3faed9-7f16-4698-8eee-84221bc48128

@@ -1,0 +1,120 @@
+slice_name: Active bus
+description: null
+certified_by: null
+certification_details: null
+viz_type: deck_scatter
+params:
+  datasource: 2__table
+  viz_type: deck_scatter
+  slice_id: 6
+  spatial:
+    type: latlong
+    latCol: y
+    lonCol: x
+  row_limit: 10000
+  filter_nulls: true
+  adhoc_filters:
+  - expressionType: SIMPLE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_vvcjua96mr_edpd3laz6fi
+  - expressionType: SIMPLE
+    subject: speed
+    operator: IS NOT NULL
+    operatorId: IS_NOT_NULL
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_9fz6s3w1r1o_meabnzxtyg9
+  - expressionType: SQL
+    sqlExpression: hour>=4 and hour <= 21
+    clause: WHERE
+    subject: null
+    operator: null
+    comparator: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_fukmfb7vco8_4nks8y15tmh
+  mapbox_style: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+  autozoom: true
+  viewport:
+    bearing: 0
+    latitude: 31.222656842808707
+    longitude: 6.85236157047845
+    pitch: 0
+    zoom: 1
+  point_radius_fixed:
+    type: metric
+    value:
+      aggregate: MAX
+      column:
+        advanced_data_type: null
+        certification_details: null
+        certified_by: null
+        column_name: speed
+        description: null
+        expression: ''
+        filterable: true
+        groupby: true
+        id: 21
+        is_certified: false
+        is_dttm: false
+        python_date_format: null
+        type: DOUBLE
+        type_generic: 0
+        uuid: 8ef2cc18-2c6f-4910-ada8-26c7e05dce0f
+        verbose_name: null
+        warning_markdown: null
+      datasourceWarning: false
+      expressionType: SIMPLE
+      hasCustomLabel: false
+      label: MAX(speed)
+      optionName: metric_355mfdjzgpa_r6j4r134im
+      sqlExpression: null
+  point_unit: square_m
+  min_radius: 3
+  max_radius: 250
+  multiplier: 1
+  legend_position: tr
+  legend_format: SMART_NUMBER
+  color_scheme_type: categorical_palette
+  color_picker:
+    r: 0
+    g: 122
+    b: 135
+    a: 1
+  dimension: speed_level
+  color_scheme: modernSunset
+  deafult_breakpoint_color:
+    r: 158
+    g: 158
+    b: 158
+    a: 1
+  js_columns: []
+  js_data_mutator: ''
+  js_tooltip: ''
+  js_onclick_href: ''
+  time_grain_sqla: null
+  granularity: null
+  extra_form_data: {}
+  dashboards:
+  - 1
+query_context: '{"datasource":{"id":2,"type":"table"},"force":false,"queries":[{"filters":[{"col":"date","op":"TEMPORAL_RANGE","val":"No
+  filter"},{"col":"speed","op":"IS NOT NULL"}],"extras":{"time_grain_sqla":null,"having":"","where":"(hour>=4
+  and hour <= 21)"},"applied_time_extras":{},"columns":[],"metrics":[],"annotation_layers":[],"row_limit":10000,"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"2__table","viz_type":"deck_scatter","slice_id":6,"spatial":{"type":"latlong","latCol":"y","lonCol":"x"},"row_limit":10000,"filter_nulls":true,"adhoc_filters":[{"expressionType":"SIMPLE","subject":"date","operator":"TEMPORAL_RANGE","comparator":"No
+  filter","clause":"WHERE","sqlExpression":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_vvcjua96mr_edpd3laz6fi"},{"expressionType":"SIMPLE","subject":"speed","operator":"IS
+  NOT NULL","operatorId":"IS_NOT_NULL","clause":"WHERE","sqlExpression":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_9fz6s3w1r1o_meabnzxtyg9"},{"expressionType":"SQL","sqlExpression":"hour>=4
+  and hour <= 21","clause":"WHERE","subject":null,"operator":null,"comparator":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_fukmfb7vco8_4nks8y15tmh"}],"mapbox_style":"https://tile.openstreetmap.org/{z}/{x}/{y}.png","autozoom":true,"viewport":{"bearing":0,"latitude":31.222656842808707,"longitude":6.85236157047845,"pitch":0,"zoom":1},"point_radius_fixed":{"type":"metric","value":{"aggregate":"MAX","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"speed","description":null,"expression":"","filterable":true,"groupby":true,"id":21,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE","type_generic":0,"uuid":"8ef2cc18-2c6f-4910-ada8-26c7e05dce0f","verbose_name":null,"warning_markdown":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"MAX(speed)","optionName":"metric_355mfdjzgpa_r6j4r134im","sqlExpression":null}},"point_unit":"square_m","min_radius":3,"max_radius":250,"multiplier":1,"legend_position":"tr","legend_format":"SMART_NUMBER","color_scheme_type":"categorical_palette","color_picker":{"r":0,"g":122,"b":135,"a":1},"dimension":"speed_level","color_scheme":"modernSunset","deafult_breakpoint_color":{"r":158,"g":158,"b":158,"a":1},"js_columns":[],"js_data_mutator":"","js_tooltip":"","js_onclick_href":"","time_grain_sqla":null,"granularity":null,"extra_form_data":{},"dashboards":[1],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 4c7437d2-0773-4947-a85a-cf63a577088c
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

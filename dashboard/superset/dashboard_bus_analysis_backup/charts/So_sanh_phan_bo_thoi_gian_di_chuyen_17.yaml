@@ -1,0 +1,121 @@
+slice_name: So sánh phân bố thời gian di chuyển
+description: null
+certified_by: null
+certification_details: null
+viz_type: box_plot
+params:
+  datasource: 1__table
+  viz_type: box_plot
+  columns:
+  - start_time
+  time_grain_sqla: PT1H
+  temporal_columns_lookup:
+    date: true
+    start_time: true
+    end_time: true
+    updated_at: true
+  groupby:
+  - route_no
+  metrics:
+  - aggregate: AVG
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: duration_minutes
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 58
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: INTEGER
+      type_generic: 0
+      uuid: d7249a4e-4109-4972-96b2-a025778d18a5
+      verbose_name: null
+      warning_markdown: null
+    datasourceWarning: false
+    expressionType: SIMPLE
+    hasCustomLabel: false
+    label: AVG(duration_minutes)
+    optionName: metric_gb0cp5kl4h_vzpj4p6ff4j
+    sqlExpression: null
+  adhoc_filters:
+  - expressionType: SIMPLE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_88lsj72duih_53yj7p6mtow
+  - expressionType: SQL
+    sqlExpression: duration_minutes BETWEEN 1 AND 300
+    clause: WHERE
+    subject: null
+    operator: null
+    comparator: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_u4v7w4xza7_pyil7kjrr6
+  row_limit: 10000
+  whiskerOptions: Tukey
+  x_axis_title: ''
+  x_axis_title_margin: 15
+  y_axis_title: ''
+  y_axis_title_margin: 30
+  y_axis_title_position: Left
+  color_scheme: supersetColors
+  x_ticks_layout: auto
+  number_format: SMART_NUMBER
+  date_format: smart_date
+  extra_form_data: {}
+  dashboards:
+  - 2
+query_context: '{"datasource": {"id": 1, "type": "table"}, "force": false, "queries":
+  [{"filters": [{"col": "date", "op": "TEMPORAL_RANGE", "val": "No filter"}], "extras":
+  {"time_grain_sqla": "PT1H", "having": "", "where": "(duration_minutes BETWEEN 1
+  AND 300)"}, "applied_time_extras": {}, "columns": [{"timeGrain": "PT1H", "columnType":
+  "BASE_AXIS", "sqlExpression": "start_time", "label": "start_time", "expressionType":
+  "SQL"}, "route_no"], "metrics": [{"aggregate": "AVG", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "duration_minutes",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  58, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "INTEGER", "type_generic": 0, "uuid": "d7249a4e-4109-4972-96b2-a025778d18a5", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": false, "label": "AVG(duration_minutes)", "optionName": "metric_gb0cp5kl4h_vzpj4p6ff4j",
+  "sqlExpression": null}], "annotation_layers": [], "row_limit": 10000, "series_columns":
+  ["route_no"], "series_limit": 0, "group_others_when_limit_reached": false, "order_desc":
+  true, "url_params": {}, "custom_params": {}, "custom_form_data": {}, "post_processing":
+  [{"operation": "boxplot", "options": {"whisker_type": "tukey", "groupby": ["route_no"],
+  "metrics": ["AVG(duration_minutes)"]}}]}], "form_data": {"datasource": "1__table",
+  "viz_type": "box_plot", "columns": ["start_time"], "time_grain_sqla": "PT1H", "temporal_columns_lookup":
+  {"date": true, "start_time": true, "end_time": true, "updated_at": true}, "groupby":
+  ["route_no"], "metrics": [{"aggregate": "AVG", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "duration_minutes",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  58, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "INTEGER", "type_generic": 0, "uuid": "d7249a4e-4109-4972-96b2-a025778d18a5", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": false, "label": "AVG(duration_minutes)", "optionName": "metric_gb0cp5kl4h_vzpj4p6ff4j",
+  "sqlExpression": null}], "adhoc_filters": [{"expressionType": "SIMPLE", "subject":
+  "date", "operator": "TEMPORAL_RANGE", "comparator": "No filter", "clause": "WHERE",
+  "sqlExpression": null, "isExtra": false, "isNew": false, "datasourceWarning": false,
+  "filterOptionName": "filter_88lsj72duih_53yj7p6mtow"}, {"expressionType": "SQL",
+  "sqlExpression": "duration_minutes BETWEEN 1 AND 300", "clause": "WHERE", "subject":
+  null, "operator": null, "comparator": null, "isExtra": false, "isNew": false, "datasourceWarning":
+  false, "filterOptionName": "filter_u4v7w4xza7_pyil7kjrr6"}], "row_limit": 10000,
+  "whiskerOptions": "Tukey", "x_axis_title": "", "x_axis_title_margin": 15, "y_axis_title":
+  "", "y_axis_title_margin": 30, "y_axis_title_position": "Left", "color_scheme":
+  "supersetColors", "x_ticks_layout": "auto", "number_format": "SMART_NUMBER", "date_format":
+  "smart_date", "extra_form_data": {}, "dashboards": [2], "force": false, "result_format":
+  "json", "result_type": "full"}, "result_format": "json", "result_type": "full"}'
+cache_timeout: null
+uuid: e6d4c63b-3c30-4e55-b8f3-2922d8c8a26a
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36

@@ -1,0 +1,106 @@
+slice_name: Average speed
+description: null
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  datasource: 2__table
+  viz_type: echarts_timeseries_line
+  slice_id: 9
+  x_axis: hour
+  xAxisForceCategorical: false
+  x_axis_sort_asc: true
+  metrics:
+  - aggregate: null
+    column: null
+    datasourceWarning: false
+    expressionType: SQL
+    hasCustomLabel: true
+    label: AVG(speed)
+    optionName: metric_4ljq9hme4d2_4fxsa9q60ca
+    sqlExpression: AVG(speed)
+  groupby:
+  - route_no
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    expressionType: SIMPLE
+    operator: TEMPORAL_RANGE
+    subject: date
+  - clause: WHERE
+    comparator: null
+    datasourceWarning: false
+    expressionType: SQL
+    filterOptionName: filter_avg_speed_hour_range
+    isExtra: false
+    isNew: false
+    operator: null
+    sqlExpression: hour >= 4 and hour <= 21
+    subject: null
+  - clause: WHERE
+    comparator: null
+    datasourceWarning: false
+    expressionType: SQL
+    filterOptionName: filter_avg_speed_moving_only
+    isExtra: false
+    isNew: false
+    operator: null
+    sqlExpression: speed > 0
+    subject: null
+  group_others_when_limit_reached: false
+  order_desc: true
+  row_limit: 1000
+  truncate_metric: true
+  show_empty_columns: true
+  comparison_type: values
+  annotation_layers: []
+  forecastEnabled: false
+  forecastPeriods: 10
+  forecastInterval: 0.8
+  x_axis_title: ''
+  x_axis_title_margin: 15
+  y_axis_title: ''
+  y_axis_title_margin: 30
+  y_axis_title_position: Left
+  sort_series_type: sum
+  sort_series_ascending: false
+  color_scheme: supersetColors
+  time_shift_color: true
+  show_value: false
+  only_total: false
+  percentage_threshold: 0
+  area: false
+  opacity: 0.2
+  markerEnabled: false
+  markerSize: 6
+  zoomable: false
+  minorTicks: false
+  show_legend: true
+  legendType: scroll
+  legendOrientation: top
+  x_axis_time_format: smart_date
+  xAxisLabelRotation: 0
+  xAxisLabelInterval: auto
+  rich_tooltip: true
+  showTooltipTotal: true
+  showTooltipPercentage: false
+  tooltipSortByMetric: false
+  tooltipTimeFormat: smart_date
+  y_axis_format: SMART_NUMBER
+  logAxis: false
+  minorSplitLine: false
+  truncateXAxis: true
+  truncateYAxis: false
+  y_axis_bounds:
+  - null
+  - null
+  extra_form_data: {}
+  dashboards:
+  - 1
+query_context: '{"datasource":{"id":2,"type":"table"},"force":false,"queries":[{"filters":[{"col":"date","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[{"columnType":"BASE_AXIS","sqlExpression":"hour","label":"hour","expressionType":"SQL","isColumnReference":true},"route_no"],"metrics":[{"aggregate":"AVG","column":{"advanced_data_type":null,"changed_on":"2026-04-16T06:52:06.640644","column_name":"speed","created_on":"2026-04-16T06:52:06.308024","description":null,"expression":"","extra":null,"filterable":true,"groupby":true,"id":38,"is_active":true,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"AVG(speed)","optionName":"metric_4ljq9hme4d2_4fxsa9q60ca","sqlExpression":null}],"orderby":[[{"aggregate":"AVG","column":{"advanced_data_type":null,"changed_on":"2026-04-16T06:52:06.640644","column_name":"speed","created_on":"2026-04-16T06:52:06.308024","description":null,"expression":"","extra":null,"filterable":true,"groupby":true,"id":38,"is_active":true,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"AVG(speed)","optionName":"metric_4ljq9hme4d2_4fxsa9q60ca","sqlExpression":null},false]],"annotation_layers":[],"row_limit":1000,"series_columns":["route_no"],"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{},"time_offsets":[],"post_processing":[{"operation":"pivot","options":{"index":["hour"],"columns":["route_no"],"aggregates":{"AVG(speed)":{"operator":"mean"}},"drop_missing_columns":false}},{"operation":"rename","options":{"columns":{"AVG(speed)":null},"level":0,"inplace":true}},{"operation":"flatten"}]}],"form_data":{"datasource":"2__table","viz_type":"echarts_timeseries_line","slice_id":9,"x_axis":"hour","xAxisForceCategorical":false,"x_axis_sort_asc":true,"metrics":[{"aggregate":"AVG","column":{"advanced_data_type":null,"changed_on":"2026-04-16T06:52:06.640644","column_name":"speed","created_on":"2026-04-16T06:52:06.308024","description":null,"expression":"","extra":null,"filterable":true,"groupby":true,"id":38,"is_active":true,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"AVG(speed)","optionName":"metric_4ljq9hme4d2_4fxsa9q60ca","sqlExpression":null}],"groupby":["route_no"],"adhoc_filters":[{"clause":"WHERE","comparator":"No
+  filter","expressionType":"SIMPLE","operator":"TEMPORAL_RANGE","subject":"date"}],"group_others_when_limit_reached":false,"order_desc":true,"row_limit":1000,"truncate_metric":true,"show_empty_columns":true,"comparison_type":"values","annotation_layers":[],"forecastEnabled":false,"forecastPeriods":10,"forecastInterval":0.8,"x_axis_title":"","x_axis_title_margin":15,"y_axis_title":"","y_axis_title_margin":30,"y_axis_title_position":"Left","sort_series_type":"sum","sort_series_ascending":false,"color_scheme":"supersetColors","time_shift_color":true,"show_value":false,"only_total":false,"percentage_threshold":0,"area":false,"opacity":0.2,"markerEnabled":false,"markerSize":6,"zoomable":false,"minorTicks":false,"show_legend":true,"legendType":"scroll","legendOrientation":"top","x_axis_time_format":"smart_date","xAxisLabelRotation":0,"xAxisLabelInterval":"auto","rich_tooltip":true,"showTooltipTotal":true,"showTooltipPercentage":false,"tooltipSortByMetric":false,"tooltipTimeFormat":"smart_date","y_axis_format":"SMART_NUMBER","logAxis":false,"minorSplitLine":false,"truncateXAxis":true,"truncateYAxis":false,"y_axis_bounds":[null,null],"extra_form_data":{},"dashboards":[1],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 4e94e6da-5614-4559-af90-9f3d37f7bb56
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

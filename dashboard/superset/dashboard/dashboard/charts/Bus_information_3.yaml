@@ -1,0 +1,131 @@
+slice_name: Bus information
+description: null
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  datasource: 2__table
+  viz_type: table
+  slice_id: 3
+  query_mode: aggregate
+  groupby:
+  - route_no
+  - vehicle
+  temporal_columns_lookup:
+    date: true
+  metrics:
+  - expressionType: SIMPLE
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: speed
+      description: null
+      expression: ''
+      filterable: true
+      groupby: true
+      id: 38
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: DOUBLE
+      type_generic: 0
+      uuid: 8416f5ca-0d0c-495b-94e0-b72a71bc328d
+      verbose_name: null
+      warning_markdown: null
+    aggregate: AVG
+    sqlExpression: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: AVG(speed)
+    optionName: metric_8qhm78kusvp_p4gxcv78yw
+  - expressionType: SIMPLE
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: vehicle
+      description: null
+      expression: ''
+      filterable: true
+      groupby: true
+      id: 31
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: VARCHAR
+      type_generic: 1
+      uuid: 0698d564-3cf0-466a-8205-bb401ceeae6a
+      verbose_name: null
+      warning_markdown: null
+    aggregate: COUNT
+    sqlExpression: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: COUNT(vehicle)
+    optionName: metric_ls78pira6z_zkq6n89fbes
+  - expressionType: SIMPLE
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: speed
+      description: null
+      expression: ''
+      filterable: true
+      groupby: true
+      id: 38
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: column
+      type_generic: 0
+      uuid: 8416f5ca-0d0c-495b-94e0-b72a71bc328d
+      verbose_name: null
+      warning_markdown: null
+    aggregate: MAX
+    sqlExpression: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: MAX(speed)
+    optionName: metric_4t23me708be_nm04oc3rvg
+  all_columns: []
+  percent_metrics: []
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    datasourceWarning: false
+    expressionType: SIMPLE
+    filterOptionName: filter_uxtjk3tmkve_mtdg99po56e
+    isExtra: false
+    isNew: false
+    operator: TEMPORAL_RANGE
+    sqlExpression: null
+    subject: date
+  order_by_cols: []
+  order_desc: true
+  server_pagination: true
+  server_page_length: 20
+  row_limit: 1000
+  percent_metric_calculation: row_limit
+  show_totals: true
+  table_timestamp_format: smart_date
+  include_search: true
+  allow_rearrange_columns: true
+  allow_render_html: true
+  show_cell_bars: true
+  align_pn: false
+  color_pn: true
+  comparison_color_enabled: false
+  comparison_color_scheme: Green
+  comparison_type: values
+  extra_form_data: {}
+  dashboards:
+  - 1
+query_context: '{"datasource":{"id":2,"type":"table"},"force":false,"queries":[{"filters":[{"col":"date","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":["route_no","vehicle"],"metrics":[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"speed","description":null,"expression":"","filterable":true,"groupby":true,"id":38,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null,"warning_markdown":null},"aggregate":"AVG","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"AVG(speed)","optionName":"metric_8qhm78kusvp_p4gxcv78yw"},{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"vehicle","description":null,"expression":"","filterable":true,"groupby":true,"id":31,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"VARCHAR","type_generic":1,"uuid":"0698d564-3cf0-466a-8205-bb401ceeae6a","verbose_name":null,"warning_markdown":null},"aggregate":"COUNT","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"COUNT(vehicle)","optionName":"metric_ls78pira6z_zkq6n89fbes"},{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"speed","description":null,"expression":"","filterable":true,"groupby":true,"id":38,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null,"warning_markdown":null},"aggregate":"MAX","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"MAX(speed)","optionName":"metric_4t23me708be_nm04oc3rvg"}],"orderby":[[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"speed","description":null,"expression":"","filterable":true,"groupby":true,"id":38,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null,"warning_markdown":null},"aggregate":"AVG","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"AVG(speed)","optionName":"metric_8qhm78kusvp_p4gxcv78yw"},false]],"annotation_layers":[],"row_limit":10000,"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{},"post_processing":[],"time_offsets":[]}],"form_data":{"datasource":"2__table","viz_type":"table","slice_id":3,"query_mode":"aggregate","groupby":["route_no","vehicle"],"temporal_columns_lookup":{"date":true},"metrics":[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"speed","description":null,"expression":"","filterable":true,"groupby":true,"id":38,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null,"warning_markdown":null},"aggregate":"AVG","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"AVG(speed)","optionName":"metric_8qhm78kusvp_p4gxcv78yw"},{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"vehicle","description":null,"expression":"","filterable":true,"groupby":true,"id":31,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"VARCHAR","type_generic":1,"uuid":"0698d564-3cf0-466a-8205-bb401ceeae6a","verbose_name":null,"warning_markdown":null},"aggregate":"COUNT","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"COUNT(vehicle)","optionName":"metric_ls78pira6z_zkq6n89fbes"},{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"speed","description":null,"expression":"","filterable":true,"groupby":true,"id":38,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":0,"uuid":"8416f5ca-0d0c-495b-94e0-b72a71bc328d","verbose_name":null,"warning_markdown":null},"aggregate":"MAX","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"MAX(speed)","optionName":"metric_4t23me708be_nm04oc3rvg"}],"all_columns":[],"percent_metrics":[],"adhoc_filters":[{"clause":"WHERE","comparator":"No
+  filter","datasourceWarning":false,"expressionType":"SIMPLE","filterOptionName":"filter_uxtjk3tmkve_mtdg99po56e","isExtra":false,"isNew":false,"operator":"TEMPORAL_RANGE","sqlExpression":null,"subject":"date"}],"order_by_cols":[],"order_desc":true,"server_pagination":true,"server_page_length":20,"row_limit":1000,"percent_metric_calculation":"row_limit","show_totals":true,"table_timestamp_format":"smart_date","include_search":true,"allow_rearrange_columns":true,"allow_render_html":true,"show_cell_bars":true,"align_pn":false,"color_pn":true,"comparison_color_enabled":false,"comparison_color_scheme":"Green","comparison_type":"values","extra_form_data":{},"dashboards":[1],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 09eb4b86-fded-42b3-b181-d292691492de
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

@@ -1,0 +1,25 @@
+slice_name: Tỉ lệ chiều vận hành
+viz_type: pie
+params:
+  datasource: 1__table
+  viz_type: pie
+  groupby:
+  - direction
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(trip_id)
+    label: Số chuyến
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  row_limit: 100
+  show_legend: true
+  show_labels: true
+  is_donut: true
+  color_scheme: supersetColors
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43112
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36

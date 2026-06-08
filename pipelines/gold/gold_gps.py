@@ -1,16 +1,17 @@
 from pyspark.sql import SparkSession, Window
 from pyspark.sql.functions import (
     col, trim, split, explode, when, broadcast,
-    round, abs, hour, dayofweek, last, current_timestamp
+    round, abs, hour, dayofweek, last, current_timestamp,
+    from_utc_timestamp
 )
 
 def main():
-    spark = SparkSession.builder.appName("GoldBusDashboard").getOrCreate()
+    spark = SparkSession.builder.appName("GoldGpsStatsOverview").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
     bus_df = (
         spark.read.table("catalog_iceberg.bus_silver.bus_way_point")
-        .filter(col("date").between("2025-03-23", "2025-04-06"))
+        .filter(col("date").between("2025-03-21", "2025-04-06"))
         .withColumn("x_round", round(col("x"), 4))
         .withColumn("y_round", round(col("y"), 4))
     )
@@ -87,7 +88,7 @@ def main():
     )
 
     # Feature engineering
-    df = df.withColumn("hour", hour("timestamp"))
+    df = df.withColumn("hour", hour(from_utc_timestamp(col("timestamp"), "Asia/Ho_Chi_Minh")))
     df = df.withColumn("day_of_week", dayofweek("date"))
     df = df.withColumn("day_type", when(col("day_of_week").isin([1, 7]), "Weekend").otherwise("Weekday"))
     df = df.withColumn("is_peak_hour", when(col("hour").isin([7, 8, 17, 18]), 1).otherwise(0))
@@ -108,7 +109,7 @@ def main():
         col("b.x").alias("x"),
         col("b.y").alias("y"),
         "updated_at"
-    ).writeTo("catalog_iceberg.bus_gold.gold_bus_dashboard").replace()
+    ).writeTo("catalog_iceberg.bus_gold.gps_stats_overview").createOrReplace()
 
     print("WRITE GOLD SUCCESS")
 

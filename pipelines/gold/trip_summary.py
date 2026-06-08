@@ -5,7 +5,7 @@ from pyspark.sql.functions import (
     col, radians, sin, cos, asin, sqrt, row_number, element_at,
     lag, unix_timestamp, when, sum as spark_sum, min as spark_min,
     max as spark_max, count, round, least, to_date, lit, current_timestamp,
-    broadcast
+    broadcast, from_utc_timestamp
 )
 
 PROCESS_DATE = os.getenv("PROCESS_DATE", "2025-03-22")
@@ -165,7 +165,7 @@ def main():
         .otherwise("LOW")
     )
 
-    trip_detail = df_trips.withColumn("date", to_date(col("start_time"))).select(
+    trip_detail = df_trips.withColumn("date", to_date(from_utc_timestamp(col("start_time"), "Asia/Ho_Chi_Minh"))).select(
         col("date"),
         col("vehicle"),
         col("route_id"),

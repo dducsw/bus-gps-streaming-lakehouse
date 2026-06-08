@@ -13,7 +13,7 @@ TABLES = [
     "catalog_iceberg.bus_silver.route_stop",
     "catalog_iceberg.bus_silver.route_terminal_density",
     "catalog_iceberg.bus_gold.trip_summary",
-    "catalog_iceberg.bus_gold.gold_bus_dashboard",
+    "catalog_iceberg.bus_gold.gps_stats_overview",
     "catalog_iceberg.bus_gold.vehicle_daily_stats",
     "catalog_iceberg.bus_gold.vehicle_latest_status",
     "catalog_iceberg.bus_gold.jepa_features"

@@ -1,0 +1,101 @@
+slice_name: Tổng số chuyến
+description: null
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SIMPLE
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: trip_id
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 49
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: column
+      type_generic: 1
+      uuid: 4dbe335e-4057-4fba-b9c7-fa8c2180df07
+      verbose_name: null
+      warning_markdown: null
+    aggregate: COUNT
+    sqlExpression: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: COUNT(trip_id)
+    optionName: metric_ucv02y907g_gcmktyl0cx
+  adhoc_filters:
+  - expressionType: SIMPLE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_pargc6571s_qlchz4rx3y9
+  - expressionType: SIMPLE
+    subject: is_completed
+    operator: IS TRUE
+    operatorId: IS_TRUE
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_p3ttqzgq62_dzb4hagtttl
+  header_font_size: 0.4
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  metric_name_font_size: 0.15
+  y_axis_format: ',d'
+  time_format: smart_date
+  force_timestamp_formatting: false
+  conditional_formatting: []
+  extra_form_data: {}
+  dashboards:
+  - 2
+query_context: '{"datasource": {"id": 1, "type": "table"}, "force": false, "queries":
+  [{"filters": [{"col": "date", "op": "TEMPORAL_RANGE", "val": "No filter"}, {"col":
+  "is_completed", "op": "IS TRUE"}], "extras": {"having": "", "where": ""}, "applied_time_extras":
+  {}, "columns": [], "metrics": [{"expressionType": "SIMPLE", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "trip_id",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  49, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "column", "type_generic": 1, "uuid": "4dbe335e-4057-4fba-b9c7-fa8c2180df07", "verbose_name":
+  null, "warning_markdown": null}, "aggregate": "COUNT", "sqlExpression": null, "datasourceWarning":
+  false, "hasCustomLabel": false, "label": "COUNT(trip_id)", "optionName": "metric_ucv02y907g_gcmktyl0cx"}],
+  "annotation_layers": [], "series_limit": 0, "group_others_when_limit_reached": false,
+  "order_desc": true, "url_params": {}, "custom_params": {}, "custom_form_data": {}}],
+  "form_data": {"datasource": "1__table", "viz_type": "big_number_total", "metric":
+  {"expressionType": "SIMPLE", "column": {"advanced_data_type": null, "certification_details":
+  null, "certified_by": null, "column_name": "trip_id", "description": null, "expression":
+  null, "filterable": true, "groupby": true, "id": 49, "is_certified": false, "is_dttm":
+  false, "python_date_format": null, "type": "column", "type_generic": 1, "uuid":
+  "4dbe335e-4057-4fba-b9c7-fa8c2180df07", "verbose_name": null, "warning_markdown":
+  null}, "aggregate": "COUNT", "sqlExpression": null, "datasourceWarning": false,
+  "hasCustomLabel": false, "label": "COUNT(trip_id)", "optionName": "metric_ucv02y907g_gcmktyl0cx"},
+  "adhoc_filters": [{"expressionType": "SIMPLE", "subject": "date", "operator": "TEMPORAL_RANGE",
+  "comparator": "No filter", "clause": "WHERE", "sqlExpression": null, "isExtra":
+  false, "isNew": false, "datasourceWarning": false, "filterOptionName": "filter_pargc6571s_qlchz4rx3y9"},
+  {"expressionType": "SIMPLE", "subject": "is_completed", "operator": "IS TRUE", "operatorId":
+  "IS_TRUE", "clause": "WHERE", "sqlExpression": null, "isExtra": false, "isNew":
+  false, "datasourceWarning": false, "filterOptionName": "filter_p3ttqzgq62_dzb4hagtttl"}],
+  "header_font_size": 0.4, "subtitle_font_size": 0.15, "show_metric_name": false,
+  "metric_name_font_size": 0.15, "y_axis_format": ",d", "time_format": "smart_date",
+  "force_timestamp_formatting": false, "conditional_formatting": [], "extra_form_data":
+  {}, "dashboards": [2], "force": false, "result_format": "json", "result_type": "full"},
+  "result_format": "json", "result_type": "full"}'
+cache_timeout: null
+uuid: 12e9998f-3aee-4c7a-a012-482ab1e90608
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
