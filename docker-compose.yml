@@ -418,6 +418,7 @@ services:
     volumes:
       - superset_data:/app/superset_home
       - ./infrastructure/superset/init.sh:/app/init.sh
+      - ./infrastructure/superset/superset_config.py:/app/pythonpath/superset_config.py
     command: ["/bin/bash", "/app/init.sh"]
     depends_on:                          # ← thêm
       postgres:

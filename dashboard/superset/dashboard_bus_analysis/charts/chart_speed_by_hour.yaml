@@ -1,0 +1,36 @@
+slice_name: Tốc độ trung bình theo giờ trong ngày (Giờ VN)
+viz_type: echarts_timeseries_line
+params:
+  datasource: 2__table
+  viz_type: echarts_timeseries_line
+  x_axis: hour_vn
+  time_grain_sqla: P1D
+  xAxisForceCategorical: true
+  x_axis_sort_asc: true
+  x_axis_title: Giờ trong ngày (GMT+7)
+  x_axis_title_margin: 30
+  y_axis_title: Tốc độ trung bình (km/h)
+  y_axis_title_margin: 30
+  metrics:
+  - expressionType: SQL
+    sqlExpression: AVG(speed)
+    label: Tốc độ TB (km/h)
+  groupby:
+  - day_type
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: speed > 0
+    filterOptionName: filter_moving_only
+  row_limit: 10000
+  show_legend: true
+  y_axis_format: ',.1f'
+  rich_tooltip: true
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43118
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

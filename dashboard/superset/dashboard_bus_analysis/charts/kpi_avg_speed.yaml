@@ -1,0 +1,32 @@
+slice_name: Tốc độ trung bình (km/h)
+viz_type: big_number_total
+params:
+  datasource: 2__table
+  viz_type: big_number_total
+  slice_id: 105
+  metric:
+    expressionType: SQL
+    sqlExpression: AVG(speed)
+    column: null
+    aggregate: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: AVG(speed)
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: speed > 0
+    filterOptionName: filter_moving_only
+  header_font_size: 0.4
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  y_axis_format: ',.1f'
+  time_format: smart_date
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43105
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

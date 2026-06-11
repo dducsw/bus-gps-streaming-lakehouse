@@ -6,7 +6,7 @@ WITH route_list AS (
         ROW_NUMBER() OVER (ORDER BY route_no) AS rn
     FROM (
         SELECT DISTINCT route_no
-        FROM catalog_iceberg.bus_gold.gold_bus_dashboard
+        FROM catalog_iceberg.bus_gold.gps_dashboard
         WHERE date = DATE '2025-03-25'
     )
 ),
@@ -27,7 +27,7 @@ selected_route AS (
 ),
 data AS (
     SELECT g.*
-    FROM catalog_iceberg.bus_gold.gold_bus_dashboard g
+    FROM catalog_iceberg.bus_gold.gps_dashboard g
     JOIN selected_route r 
         ON g.route_no = r.route_no
     WHERE g.date = DATE '2025-03-25'
@@ -42,7 +42,7 @@ WITH selected_route AS (
             ROW_NUMBER() OVER (ORDER BY route_no) AS rn
         FROM (
             SELECT DISTINCT route_no
-            FROM catalog_iceberg.bus_gold.gold_bus_dashboard
+            FROM catalog_iceberg.bus_gold.gps_dashboard
             WHERE date = DATE '2025-03-25'
         )
     ),
@@ -62,7 +62,7 @@ avg_selected_route AS (
     SELECT 
         hour,
         AVG(speed) AS avg_speed_route
-    FROM catalog_iceberg.bus_gold.gold_bus_dashboard
+    FROM catalog_iceberg.bus_gold.gps_dashboard
     WHERE date = DATE '2025-03-25'
       AND route_no = (SELECT route_no FROM selected_route)
     GROUP BY hour
@@ -71,7 +71,7 @@ avg_all_routes AS (
     SELECT 
         hour,
         AVG(speed) AS avg_speed_all
-    FROM catalog_iceberg.bus_gold.gold_bus_dashboard
+    FROM catalog_iceberg.bus_gold.gps_dashboard
     WHERE date = DATE '2025-03-25'
     GROUP BY hour
 )

@@ -54,9 +54,28 @@ def main():
         USING iceberg
     """)
 
-    df_clean.writeTo("catalog_iceberg.bus_silver.route_stop").append()
+    df_clean.createOrReplaceTempView("source_route_stop")
 
-    print("WRITE route_stop SUCCESS")
+    spark.sql("""
+        MERGE INTO catalog_iceberg.bus_silver.route_stop t
+        USING source_route_stop s
+        ON t.route_id = s.route_id AND t.route_var_id = s.route_var_id AND t.stop_id = s.stop_id
+        WHEN MATCHED THEN UPDATE SET 
+            t.code = s.code,
+            t.stop_name = s.stop_name,
+            t.stop_type = s.stop_type,
+            t.zone = s.zone,
+            t.ward = s.ward,
+            t.address_no = s.address_no,
+            t.street = s.street,
+            t.lng = s.lng,
+            t.lat = s.lat,
+            t.routes = s.routes,
+            t.updated_at = s.updated_at
+        WHEN NOT MATCHED THEN INSERT *
+    """)
+
+    print("MERGE route_stop SUCCESS")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,31 @@
+slice_name: Tốc độ trung bình theo tuyến
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 2__table
+  viz_type: echarts_timeseries_bar
+  x_axis: route_no
+  time_grain_sqla: P1D
+  xAxisForceCategorical: true
+  x_axis_sort_asc: true
+  metrics:
+  - expressionType: SQL
+    sqlExpression: AVG(speed)
+    label: Tốc độ trung bình (km/h)
+  groupby: []
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: speed > 0
+    filterOptionName: filter_moving_only
+  row_limit: 1000
+  show_legend: true
+  y_axis_format: ',.1f'
+  rich_tooltip: true
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43115
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

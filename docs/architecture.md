@@ -76,7 +76,7 @@ We use the Medallion architecture to organize data into different levels of refi
     - **Outputs**: 
         - `trip_summary`: Segmented trips with distance, duration, and average speed.
         - `vehicle_daily_stats`: Daily performance KPIs per vehicle.
-        - `gold_bus_dashboard`: Flattened data optimized for Grafana.
+        - `gps_stats_overview`: Flattened data optimized for Grafana.
 
 ### 2.3 Storage Layer (Lakehouse)
 - **Apache Iceberg**: Provides SQL-like capabilities (ACID transactions, Time Travel, Schema Evolution) on top of object storage.

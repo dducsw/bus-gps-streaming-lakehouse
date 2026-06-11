@@ -1,0 +1,57 @@
+slice_name: Tỉ lệ hoàn thành tuyến
+description: null
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: count(is_completed) / NULLIF(count(*), 0)
+    column: null
+    aggregate: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: count(is_completed) / NULLIF(count(*), 0)
+    optionName: metric_ed75u1ignnk_zq9bi55tcn
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  header_font_size: 0.4
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  metric_name_font_size: 0.15
+  y_axis_format: ',.1%'
+  time_format: smart_date
+  force_timestamp_formatting: false
+  conditional_formatting: []
+  extra_form_data: {}
+  dashboards:
+  - 2
+query_context: '{"datasource": {"id": 1, "type": "table"}, "force": false, "queries":
+  [{"filters": [{"col": "date", "op": "TEMPORAL_RANGE", "val": "No filter"}], "extras":
+  {"having": "", "where": ""}, "applied_time_extras": {}, "columns": [], "metrics":
+  [{"expressionType": "SQL", "sqlExpression": "count(is_completed) / NULLIF(count(*), 0)", "column":
+  null, "aggregate": null, "datasourceWarning": false, "hasCustomLabel": false, "label":
+  "count(is_completed) / NULLIF(count(*), 0)", "optionName": "metric_ed75u1ignnk_zq9bi55tcn"}],
+  "annotation_layers": [], "series_limit": 0, "group_others_when_limit_reached": false,
+  "order_desc": true, "url_params": {}, "custom_params": {}, "custom_form_data": {}}],
+  "form_data": {"datasource": "1__table", "viz_type": "big_number_total", "metric":
+  {"expressionType": "SQL", "sqlExpression": "count(is_completed) / NULLIF(count(*), 0)", "column":
+  null, "aggregate": null, "datasourceWarning": false, "hasCustomLabel": false, "label":
+  "count(is_completed) / NULLIF(count(*), 0)", "optionName": "metric_ed75u1ignnk_zq9bi55tcn"},
+  "adhoc_filters": [{"clause": "WHERE", "subject": "date", "operator": "TEMPORAL_RANGE",
+  "comparator": "No filter", "expressionType": "SIMPLE"}], "header_font_size": 0.4,
+  "subtitle_font_size": 0.15, "show_metric_name": false, "metric_name_font_size":
+  0.15, "y_axis_format": ",.1%", "time_format": "smart_date", "force_timestamp_formatting":
+  false, "conditional_formatting": [], "extra_form_data": {}, "dashboards": [2], "force":
+  false, "result_format": "json", "result_type": "full"}, "result_format": "json",
+  "result_type": "full"}'
+cache_timeout: null
+uuid: 213f8b97-cbfc-4ca9-b428-fa5feabdc131
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36

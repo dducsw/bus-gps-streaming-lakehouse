@@ -42,16 +42,14 @@ $$H = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{bmatrix}$$
 
 ### 3.1 Nhiễu Đo lường (Measurement Noise - $R$)
 Đại diện cho sai số của thiết bị GPS. 
-Trong `kalman_filter_demo.py`, $R$ được tính toán động cho từng phương tiện:
-- **Cách tính**: Tìm các đoạn dữ liệu khi xe đang dừng (**speed = 0**) trong ít nhất 10 gói tin liên tiếp.
-- **Giá trị**: Phương sai (variance) của tọa độ $x$ và $y$ trong các đoạn dừng này chính là độ nhiễu thực tế của thiết bị.
-- **Fallback**: Nếu xe không có dữ liệu dừng, sử dụng giá trị trung bình toàn hệ thống (Contingent Variance).
+* **Cấu hình tối ưu hiện tại:** Ma trận nhiễu đo lường được cố định ở mức ổn định $R_{var} = 1 \times 10^{-6}$ (tương ứng với độ lệch chuẩn sai số GPS thực tế trong đô thị là $\approx 111$ mét).
+* **Lý do bỏ Adaptive R (Hiệu chuẩn động):** Ban đầu hệ thống tự động tính toán $R$ cho từng xe dựa trên các phân đoạn dừng đỗ (vận tốc $\le 2$ km/h). Tuy nhiên, trên thực tế nhiều xe bị **hỏng cảm biến tốc độ** (luôn báo vận tốc $\le 2$ km/h khi đang chạy), dẫn đến việc thuật toán hiệu chuẩn tính sai lệch phương sai của cả ngày chạy thành phương sai tĩnh, khiến bộ lọc Kalman bị trôi lệch nghiêm trọng (lên tới 28 mét). Việc sử dụng $R$ cố định $10^{-6}$ khắc phục triệt để lỗi này, giảm độ lệch trung bình toàn hệ thống xuống còn $8.5$ mét.
 
 ### 3.2 Nhiễu Hệ thống (Process Noise - $Q$)
 Đại diện cho sự không chắc chắn của mô hình vật lý (xe không thực sự đi với vận tốc hằng số, có tăng/giảm tốc).
 Sử dụng mô hình nhiễu gia tốc trắng (**White Noise Acceleration Model**):
 $$Q = G \cdot G^T \cdot \sigma_a^2$$
-Với $\sigma_a^2 = 1.96 \times 10^{-10}$ (phương sai gia tốc giả định cho xe buýt).
+Với $\sigma_a^2 = 1 \times 10^{-11}$ (tương đương với độ lệch chuẩn gia tốc khoảng $0.35\text{ m/s}^2$ trong thực tế, phù hợp với đặc tính chuyển động êm ái, đầm của xe buýt đô thị).
 Ma trận $Q$ phụ thuộc vào $\Delta t$:
 $$Q = \sigma_a^2 \begin{bmatrix} \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} & 0 \\ 0 & \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} \\ \frac{\Delta t^3}{2} & 0 & \Delta t^2 & 0 \\ 0 & \frac{\Delta t^3}{2} & 0 & \Delta t^2 \end{bmatrix}$$
 
@@ -98,8 +96,9 @@ Việc áp dụng Kalman Filter ở tầng Silver đóng vai trò "nền móng" 
 ## 7. Tham khảo mã nguồn
 
 Giải thuật này được triển khai và kiểm thử tại các file sau:
-- **Bản Demo (Pandas/Matplotlib)**: [scripts/kalman_filter_demo.py](file:///d:/Projects/mp-252/scripts/kalman_filter_demo.py) - Dùng để nghiên cứu và tinh chỉnh tham số.
-- **Bản Production (PySpark/Pandas UDF)**: [pipelines/silver/silver_buswaypoint.py](file:///d:/Projects/mp-252/pipelines/silver/silver_buswaypoint.py) - Áp dụng trực tiếp vào pipeline xử lý dữ liệu từ Bronze lên Silver.
+- **Bản Python Core (Logic Kalman)**: [pipelines/silver/kalman_filter.py](file:///d:/Projects/mp-252/pipelines/silver/kalman_filter.py) - Định nghĩa lớp `RedisBackedKalmanFilter` chứa logic toán học và lưu trữ trạng thái xe với Redis.
+- **Bản Production (PySpark/Pandas UDF)**: [pipelines/silver/silver_buswaypoint.py](file:///d:/Projects/mp-252/pipelines/silver/silver_buswaypoint.py) - Áp dụng trực tiếp vào pipeline xử lý dữ liệu streaming từ Bronze lên Silver bằng Spark Structured Streaming.
+- **Bản Demo (Pandas/Matplotlib)**: [scripts/kalman_filter_demo.py](file:///d:/Projects/mp-252/scripts/kalman_filter_demo.py) - Bản chạy thử nghiệm cục bộ phục vụ nghiên cứu và trực quan hóa kết quả.
 
 ---
 

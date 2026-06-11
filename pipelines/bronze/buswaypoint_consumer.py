@@ -65,19 +65,11 @@ def stream_kafka_to_iceberg(spark: SparkSession, table_name: str) -> None:
     )
     
     def write_batch_to_iceberg(batch_df, batch_id):
-        print(f"[Batch {batch_id}] Start write")
-        if batch_df.isEmpty():
-            print(f"[Batch {batch_id}] Empty batch, skipping")
-            return
-
-        rec_count = batch_df.count()
-        print(f"[Batch {batch_id}] Received {rec_count} records")
-        batch_df.show(5, truncate=False)
-
+        print(f"[Batch {batch_id}] Writing streaming batch to Bronze...", flush=True)
         batch_df.writeTo(table_name).append()
-        print(f"[Batch {batch_id}] Written {rec_count} records to {table_name}")
+        print(f"[Batch {batch_id}] Successfully written batch to {table_name}.", flush=True)
 
-    # Write to Iceberg with foreachBatch for logging
+    # Write to Iceberg with foreachBatch
     query = (
         df_with_ts
         .writeStream
@@ -93,6 +85,10 @@ if __name__ == "__main__":
     spark = (
         SparkSession.builder
         .appName("KafkaJsonToMinIO")
+        .config("spark.driver.memory", "1g")
+        .config("spark.executor.memory", "1g")
+        .config("spark.executor.cores", "1")
+        .config("spark.cores.max", "1")
         .getOrCreate()
     )
 

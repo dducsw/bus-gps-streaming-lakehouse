@@ -5,8 +5,8 @@ def apply_optimized_sort_order(spark: SparkSession, table_name: str):
     print(f"--- Applying Optimized Sort Order for: {table_name} ---")
     
     # 1. Set Table Property
-    print("Setting table sort order: route_no, vehicle, timestamp")
-    spark.sql(f"ALTER TABLE {table_name} WRITE ORDERED BY route_no, vehicle, timestamp")
+    print("Setting table sort order: vehicle, timestamp")
+    spark.sql(f"ALTER TABLE {table_name} WRITE ORDERED BY vehicle, timestamp")
     
     # 2. Re-organize EXISTING data
     print("Executing rewrite_data_files with SORT strategy...")
@@ -14,7 +14,7 @@ def apply_optimized_sort_order(spark: SparkSession, table_name: str):
         CALL catalog_iceberg.system.rewrite_data_files(
             table => '{table_name}',
             strategy => 'sort',
-            sort_order => 'route_no ASC NULLS FIRST, vehicle ASC NULLS FIRST, timestamp ASC NULLS FIRST'
+            sort_order => 'vehicle ASC NULLS FIRST, timestamp ASC NULLS FIRST'
         )
     """)
     

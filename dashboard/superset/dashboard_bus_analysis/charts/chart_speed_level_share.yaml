@@ -1,0 +1,22 @@
+slice_name: Phân bố mức độ tốc độ
+viz_type: pie
+params:
+  datasource: 2__table
+  viz_type: pie
+  groupby:
+  - speed_level
+  metric: count
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  row_limit: 100
+  show_legend: true
+  show_labels: true
+  is_donut: true
+  color_scheme: supersetColors
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43114
+version: 1.0.0
+dataset_uuid: 66001989-e88d-4d5a-b893-a48af89419fd

@@ -1,0 +1,32 @@
+slice_name: Bảng chi tiết chuyến xe
+viz_type: table
+params:
+  datasource: 1__table
+  viz_type: table
+  groupby:
+  - date
+  - vehicle
+  - route_no
+  - direction
+  - start_time
+  - end_time
+  - trip_duration_minutes
+  - total_distance_km
+  - confidence_score
+  metrics: []
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  row_limit: 5000
+  show_totals: false
+  include_search: true
+  allow_rearrange_columns: true
+  server_page_length: 25
+  server_pagination: true
+  table_timestamp_format: smart_date
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43117
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36

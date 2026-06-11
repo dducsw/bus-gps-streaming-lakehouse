@@ -1,0 +1,28 @@
+slice_name: Tổng quãng đường (km)
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  slice_id: 104
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(total_distance_km)
+    column: null
+    aggregate: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: SUM(total_distance_km)
+  adhoc_filters:
+  - clause: WHERE
+    subject: date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  header_font_size: 0.4
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  y_axis_format: ',.1f'
+  time_format: smart_date
+uuid: 5f17d312-d85c-485a-8bc5-01e411b43104
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36

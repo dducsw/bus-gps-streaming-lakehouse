@@ -27,7 +27,7 @@ We organize our data into three distinct layers to ensure reliability, quality, 
 - **Outputs**:
     - `trip_summary`: Advanced trip segmentation logic based on terminal proximity and speed.
     - `vehicle_daily_stats`: Summarized performance metrics per day.
-    - `gold_bus_dashboard`: Denormalized data optimized for instant Grafana visualization.
+    - `gps_stats_overview`: Denormalized data optimized for instant Grafana visualization.
 
 ---
 

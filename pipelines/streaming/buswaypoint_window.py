@@ -124,9 +124,11 @@ def write_metrics_to_redis(batch_df, batch_id):
 def main():
     spark = (
         SparkSession.builder.appName("BusRouteWindowMetrics")
-        .config("spark.sql.shuffle.partitions", "4")
+        .config("spark.driver.memory", "1536m")
+        .config("spark.executor.memory", "2g")
         .config("spark.executor.cores", "2")
         .config("spark.cores.max", "2")
+        .config("spark.sql.shuffle.partitions", "4")
         .getOrCreate()
     )
     spark.sparkContext.setLogLevel("ERROR")

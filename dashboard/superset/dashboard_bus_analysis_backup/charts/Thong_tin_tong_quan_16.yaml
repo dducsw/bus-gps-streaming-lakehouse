@@ -1,0 +1,180 @@
+slice_name: Thông tin tổng quan
+description: null
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  datasource: 1__table
+  viz_type: table
+  slice_id: 16
+  query_mode: aggregate
+  groupby:
+  - route_no
+  - vehicle
+  temporal_columns_lookup:
+    date: true
+    start_time: true
+    end_time: true
+    updated_at: true
+  metrics:
+  - aggregate: COUNT
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: vehicle
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 50
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: VARCHAR
+      type_generic: 1
+      uuid: 15d9d771-2df3-494b-ab4e-1455e5383594
+      verbose_name: null
+      warning_markdown: null
+    datasourceWarning: false
+    expressionType: SIMPLE
+    hasCustomLabel: false
+    label: COUNT(vehicle)
+    optionName: metric_jo9wybtllt_07xlrlur4cfv
+    sqlExpression: null
+  - aggregate: AVG
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: avg_speed
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 59
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: DOUBLE
+      type_generic: 0
+      uuid: c8647f89-f2da-40ca-a38c-b6541458999c
+      verbose_name: null
+      warning_markdown: null
+    datasourceWarning: false
+    expressionType: SIMPLE
+    hasCustomLabel: true
+    label: AVG(speed)
+    optionName: metric_8zvlwpx164m_3msx11ow7l6
+    sqlExpression: null
+  all_columns: []
+  percent_metrics: []
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    expressionType: SIMPLE
+    operator: TEMPORAL_RANGE
+    subject: date
+  order_by_cols: []
+  server_pagination: true
+  server_page_length: 10
+  row_limit: 5000
+  percent_metric_calculation: row_limit
+  show_totals: false
+  table_timestamp_format: smart_date
+  include_search: false
+  allow_rearrange_columns: false
+  allow_render_html: true
+  show_cell_bars: true
+  align_pn: false
+  color_pn: true
+  comparison_color_enabled: false
+  comparison_color_scheme: Green
+  comparison_type: values
+  extra_form_data: {}
+  dashboards:
+  - 2
+query_context: '{"datasource": {"id": 1, "type": "table"}, "force": false, "queries":
+  [{"filters": [{"col": "date", "op": "TEMPORAL_RANGE", "val": "No filter"}], "extras":
+  {"having": "", "where": ""}, "applied_time_extras": {}, "columns": ["route_no",
+  "vehicle"], "metrics": [{"aggregate": "COUNT", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "vehicle",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  50, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "VARCHAR", "type_generic": 1, "uuid": "15d9d771-2df3-494b-ab4e-1455e5383594", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": false, "label": "COUNT(vehicle)", "optionName": "metric_jo9wybtllt_07xlrlur4cfv",
+  "sqlExpression": null}, {"aggregate": "AVG", "column": {"advanced_data_type": null,
+  "certification_details": null, "certified_by": null, "column_name": "avg_speed",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  59, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "DOUBLE", "type_generic": 0, "uuid": "c8647f89-f2da-40ca-a38c-b6541458999c", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": true, "label": "AVG(speed)", "optionName": "metric_8zvlwpx164m_3msx11ow7l6",
+  "sqlExpression": null}], "orderby": [[{"aggregate": "COUNT", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "vehicle",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  50, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "VARCHAR", "type_generic": 1, "uuid": "15d9d771-2df3-494b-ab4e-1455e5383594", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": false, "label": "COUNT(vehicle)", "optionName": "metric_jo9wybtllt_07xlrlur4cfv",
+  "sqlExpression": null}, false]], "annotation_layers": [], "row_limit": 10, "row_offset":
+  0, "series_limit": 0, "group_others_when_limit_reached": false, "order_desc": true,
+  "url_params": {}, "custom_params": {}, "custom_form_data": {}, "post_processing":
+  [], "time_offsets": []}, {"filters": [{"col": "date", "op": "TEMPORAL_RANGE", "val":
+  "No filter"}], "extras": {"having": "", "where": ""}, "applied_time_extras": {},
+  "columns": ["route_no", "vehicle"], "metrics": [{"aggregate": "COUNT", "column":
+  {"advanced_data_type": null, "certification_details": null, "certified_by": null,
+  "column_name": "vehicle", "description": null, "expression": null, "filterable":
+  true, "groupby": true, "id": 50, "is_certified": false, "is_dttm": false, "python_date_format":
+  null, "type": "VARCHAR", "type_generic": 1, "uuid": "15d9d771-2df3-494b-ab4e-1455e5383594",
+  "verbose_name": null, "warning_markdown": null}, "datasourceWarning": false, "expressionType":
+  "SIMPLE", "hasCustomLabel": false, "label": "COUNT(vehicle)", "optionName": "metric_jo9wybtllt_07xlrlur4cfv",
+  "sqlExpression": null}, {"aggregate": "AVG", "column": {"advanced_data_type": null,
+  "certification_details": null, "certified_by": null, "column_name": "avg_speed",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  59, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "DOUBLE", "type_generic": 0, "uuid": "c8647f89-f2da-40ca-a38c-b6541458999c", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": true, "label": "AVG(speed)", "optionName": "metric_8zvlwpx164m_3msx11ow7l6",
+  "sqlExpression": null}], "orderby": [[{"aggregate": "COUNT", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "vehicle",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  50, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "VARCHAR", "type_generic": 1, "uuid": "15d9d771-2df3-494b-ab4e-1455e5383594", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": false, "label": "COUNT(vehicle)", "optionName": "metric_jo9wybtllt_07xlrlur4cfv",
+  "sqlExpression": null}, false]], "annotation_layers": [], "row_limit": 5000, "row_offset":
+  0, "series_limit": 0, "group_others_when_limit_reached": false, "order_desc": true,
+  "url_params": {}, "custom_params": {}, "custom_form_data": {}, "post_processing":
+  [], "time_offsets": [], "is_rowcount": true}], "form_data": {"datasource": "1__table",
+  "viz_type": "table", "slice_id": 16, "query_mode": "aggregate", "groupby": ["route_no",
+  "vehicle"], "temporal_columns_lookup": {"date": true, "start_time": true, "end_time":
+  true, "updated_at": true}, "metrics": [{"aggregate": "COUNT", "column": {"advanced_data_type":
+  null, "certification_details": null, "certified_by": null, "column_name": "vehicle",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  50, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "VARCHAR", "type_generic": 1, "uuid": "15d9d771-2df3-494b-ab4e-1455e5383594", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": false, "label": "COUNT(vehicle)", "optionName": "metric_jo9wybtllt_07xlrlur4cfv",
+  "sqlExpression": null}, {"aggregate": "AVG", "column": {"advanced_data_type": null,
+  "certification_details": null, "certified_by": null, "column_name": "avg_speed",
+  "description": null, "expression": null, "filterable": true, "groupby": true, "id":
+  59, "is_certified": false, "is_dttm": false, "python_date_format": null, "type":
+  "DOUBLE", "type_generic": 0, "uuid": "c8647f89-f2da-40ca-a38c-b6541458999c", "verbose_name":
+  null, "warning_markdown": null}, "datasourceWarning": false, "expressionType": "SIMPLE",
+  "hasCustomLabel": true, "label": "AVG(speed)", "optionName": "metric_8zvlwpx164m_3msx11ow7l6",
+  "sqlExpression": null}], "all_columns": [], "percent_metrics": [], "adhoc_filters":
+  [{"clause": "WHERE", "comparator": "No filter", "expressionType": "SIMPLE", "operator":
+  "TEMPORAL_RANGE", "subject": "date"}], "order_by_cols": [], "server_pagination":
+  true, "server_page_length": 10, "row_limit": 5000, "percent_metric_calculation":
+  "row_limit", "show_totals": false, "table_timestamp_format": "smart_date", "include_search":
+  false, "allow_rearrange_columns": false, "allow_render_html": true, "show_cell_bars":
+  true, "align_pn": false, "color_pn": true, "comparison_color_enabled": false, "comparison_color_scheme":
+  "Green", "comparison_type": "values", "extra_form_data": {}, "dashboards": [2],
+  "force": false, "result_format": "json", "result_type": "full"}, "result_format":
+  "json", "result_type": "full"}'
+cache_timeout: null
+uuid: 76093311-98fc-4483-9b0d-48fd7f4e9bff
+version: 1.0.0
+dataset_uuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
