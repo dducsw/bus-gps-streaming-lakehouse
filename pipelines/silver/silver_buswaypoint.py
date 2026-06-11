@@ -29,9 +29,9 @@ def apply_kalman_filter_with_redis(pdf: pd.DataFrame) -> pd.DataFrame:
     kf = RedisBackedKalmanFilter(
         redis_host=REDIS_HOST,
         redis_port=REDIS_PORT,
-        R_var=5e-8,         # Optimized Measurement noise
-        sigma_a_sq=1.96e-10, # Process noise
-        max_dt=15.0         # Max dt threshold for reset
+        R_var=1e-6,           # Measurement noise: ~111m GPS std dev (stable urban tracking)
+        sigma_a_sq=1e-11,     # Process noise: Q/R≈0.025@dt=10s → balanced filter
+        max_dt=15.0           # Max dt threshold for reset
     )
     return kf.process_trajectory(pdf)
 

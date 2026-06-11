@@ -6,7 +6,7 @@ offset: 0
 cache_timeout: null
 catalog: catalog_iceberg
 schema: bus_gold
-sql: "SELECT *,\n  MOD(hour + 7, 24) as hour_vn\nFROM catalog_iceberg.bus_gold.gps_stats_overview"
+sql: "SELECT *,\n  hour as hour_vn\nFROM catalog_iceberg.bus_gold.gps_stats_overview"
 params: null
 template_params: null
 filter_select_enabled: true
@@ -188,7 +188,7 @@ columns:
   type: INTEGER
   groupby: true
   filterable: true
-  expression: MOD(hour + 7, 24)
+  expression: ''
   description: Giờ GPS theo giờ Việt Nam (GMT+7), range 0-23
   python_date_format: null
   extra: null

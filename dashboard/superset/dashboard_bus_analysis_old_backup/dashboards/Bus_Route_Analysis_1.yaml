@@ -1,0 +1,528 @@
+dashboard_title: Bus Route Analysis
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: true
+uuid: bdbe2ce4-09f5-4064-8140-75a722e98578
+position:
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  GRID_ID:
+    children:
+    - TABS-main
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  TABS-main:
+    children:
+    - TAB-operational-overview
+    - TAB-performance-speed
+    - TAB-operational-details
+    id: TABS-main
+    meta: {}
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: TABS
+  TAB-operational-overview:
+    children:
+    - ROW-kpis-1
+    - ROW-charts-1
+    - ROW-charts-2
+    id: TAB-operational-overview
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Tổng quan vận hành
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    type: TAB
+  ROW-kpis-1:
+    children:
+    - CHART-kpi-101
+    - CHART-kpi-102
+    - CHART-kpi-103
+    - CHART-kpi-104
+    id: ROW-kpis-1
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    type: ROW
+  CHART-kpi-101:
+    children: []
+    id: CHART-kpi-101
+    meta:
+      chartId: 101
+      height: 30
+      sliceName: Tổng số chuyến xe
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43101
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-kpis-1
+    type: CHART
+  CHART-kpi-102:
+    children: []
+    id: CHART-kpi-102
+    meta:
+      chartId: 102
+      height: 30
+      sliceName: Tuyến xe hoạt động
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43102
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-kpis-1
+    type: CHART
+  CHART-kpi-103:
+    children: []
+    id: CHART-kpi-103
+    meta:
+      chartId: 103
+      height: 30
+      sliceName: Số xe vận hành
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43103
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-kpis-1
+    type: CHART
+  CHART-kpi-104:
+    children: []
+    id: CHART-kpi-104
+    meta:
+      chartId: 104
+      height: 30
+      sliceName: Tổng quãng đường (km)
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43104
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-kpis-1
+    type: CHART
+  ROW-charts-1:
+    children:
+    - CHART-bar-111
+    - CHART-pie-112
+    id: ROW-charts-1
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    type: ROW
+  CHART-bar-111:
+    children: []
+    id: CHART-bar-111
+    meta:
+      chartId: 111
+      height: 60
+      sliceName: Biểu đồ chuyến xe theo tuyến
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43111
+      width: 7
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-charts-1
+    type: CHART
+  CHART-pie-112:
+    children: []
+    id: CHART-pie-112
+    meta:
+      chartId: 112
+      height: 60
+      sliceName: Tỉ lệ chiều vận hành
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43112
+      width: 5
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-charts-1
+    type: CHART
+  ROW-charts-2:
+    children:
+    - CHART-bar-113
+    id: ROW-charts-2
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    type: ROW
+  CHART-bar-113:
+    children: []
+    id: CHART-bar-113
+    meta:
+      chartId: 113
+      height: 60
+      sliceName: Xu hướng chuyến xe theo giờ (Giờ VN)
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43113
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-overview
+    - ROW-charts-2
+    type: CHART
+  TAB-performance-speed:
+    children:
+    - ROW-kpis-2
+    - ROW-charts-3
+    - ROW-charts-4
+    - ROW-charts-5
+    id: TAB-performance-speed
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Hiệu suất & Tốc độ
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    type: TAB
+  ROW-kpis-2:
+    children:
+    - CHART-kpi-105
+    - CHART-kpi-106
+    id: ROW-kpis-2
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    type: ROW
+  CHART-kpi-105:
+    children: []
+    id: CHART-kpi-105
+    meta:
+      chartId: 105
+      height: 30
+      sliceName: Tốc độ trung bình (km/h)
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43105
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    - ROW-kpis-2
+    type: CHART
+  CHART-kpi-106:
+    children: []
+    id: CHART-kpi-106
+    meta:
+      chartId: 106
+      height: 30
+      sliceName: Thời gian di chuyển trung bình (phút)
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43106
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    - ROW-kpis-2
+    type: CHART
+  ROW-charts-3:
+    children:
+    - CHART-pie-114
+    - CHART-bar-115
+    id: ROW-charts-3
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    type: ROW
+  CHART-pie-114:
+    children: []
+    id: CHART-pie-114
+    meta:
+      chartId: 114
+      height: 60
+      sliceName: Phân bố mức độ tốc độ
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43114
+      width: 5
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    - ROW-charts-3
+    type: CHART
+  CHART-bar-115:
+    children: []
+    id: CHART-bar-115
+    meta:
+      chartId: 115
+      height: 60
+      sliceName: Tốc độ trung bình theo tuyến
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43115
+      width: 7
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    - ROW-charts-3
+    type: CHART
+  ROW-charts-4:
+    children:
+    - CHART-map-116
+    id: ROW-charts-4
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    type: ROW
+  CHART-map-116:
+    children: []
+    id: CHART-map-116
+    meta:
+      chartId: 116
+      height: 80
+      sliceName: Bản đồ tọa độ xe vận hành
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43116
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    - ROW-charts-4
+    type: CHART
+  ROW-charts-5:
+    children:
+    - CHART-line-118
+    id: ROW-charts-5
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    type: ROW
+  CHART-line-118:
+    children: []
+    id: CHART-line-118
+    meta:
+      chartId: 118
+      height: 60
+      sliceName: Tốc độ trung bình theo giờ trong ngày (Giờ VN)
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43118
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-performance-speed
+    - ROW-charts-5
+    type: CHART
+  TAB-operational-details:
+    children:
+    - ROW-details
+    id: TAB-operational-details
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Chi tiết chuyến xe
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    type: TAB
+  ROW-details:
+    children:
+    - CHART-table-117
+    id: ROW-details
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-details
+    type: ROW
+  CHART-table-117:
+    children: []
+    id: CHART-table-117
+    meta:
+      chartId: 117
+      height: 80
+      sliceName: Bảng chi tiết chuyến xe
+      uuid: 5f17d312-d85c-485a-8bc5-01e411b43117
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-main
+    - TAB-operational-details
+    - ROW-details
+    type: CHART
+metadata:
+  color_scheme_domain: []
+  shared_label_colors: []
+  map_label_colors: {}
+  label_colors: {}
+  chart_configuration: {}
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 101
+    - 102
+    - 103
+    - 104
+    - 105
+    - 106
+    - 111
+    - 112
+    - 113
+    - 114
+    - 115
+    - 116
+    - 117
+    - 118
+  color_scheme: ''
+  refresh_frequency: 0
+  expanded_slices: {}
+  timed_refresh_immune_slices: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+  native_filter_configuration:
+  - id: NATIVE_FILTER-RouteSelect
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      creatable: true
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Chọn tuyến xe
+    filterType: filter_select
+    targets:
+    - column:
+        name: route_no
+      datasetUuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
+    - column:
+        name: route_no
+      datasetUuid: 66001989-e88d-4d5a-b893-a48af89419fd
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    type: NATIVE_FILTER
+    description: ''
+    chartsInScope:
+    - 101
+    - 102
+    - 103
+    - 104
+    - 105
+    - 106
+    - 111
+    - 112
+    - 113
+    - 114
+    - 115
+    - 116
+    - 117
+    - 118
+    tabsInScope: []
+  - id: NATIVE_FILTER-DateFilter
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      creatable: true
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Chọn ngày
+    filterType: filter_time
+    targets:
+    - column:
+        name: date
+      datasetUuid: e09aea66-fa2c-4236-b955-b6268d1bbf36
+    - column:
+        name: date
+      datasetUuid: 66001989-e88d-4d5a-b893-a48af89419fd
+    defaultDataMask:
+      extraFormData:
+        time_range: '2025-03-21 : 2025-03-24'
+      filterState:
+        label: '2025-03-21 : 2025-03-24'
+        value: '2025-03-21 : 2025-03-24'
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    type: NATIVE_FILTER
+    description: ''
+    chartsInScope:
+    - 101
+    - 102
+    - 103
+    - 104
+    - 105
+    - 106
+    - 111
+    - 112
+    - 113
+    - 114
+    - 115
+    - 116
+    - 117
+    - 118
+    tabsInScope: []
+theme_uuid: null
+version: 1.0.0

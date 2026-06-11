@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.window import Window
-from pyspark.sql.functions import col, radians, sin, cos, asin, sqrt, lag, unix_timestamp, avg, stddev, lit, sum as spark_sum
+from pyspark.sql.functions import col, radians, sin, cos, asin, sqrt, lag, unix_timestamp, avg, stddev, lit, sum as spark_sum, broadcast
 
 def haversine_spark(lat1, lng1, lat2, lng2):
     dlat = radians(lat2 - lat1)
@@ -10,15 +10,33 @@ def haversine_spark(lat1, lng1, lat2, lng2):
     return 6371.0 * c  # Output in km
 
 def main():
-    spark = SparkSession.builder.appName("KalmanEvaluation").getOrCreate()
+    spark = (
+        SparkSession.builder
+        .appName("KalmanEvaluation")
+        .config("spark.driver.memory", "1536m")
+        .config("spark.executor.memory", "1536m")
+        .config("spark.executor.cores", "2")
+        .config("spark.cores.max", "4")
+        .config("spark.sql.shuffle.partitions", "8")
+        .getOrCreate()
+    )
     spark.sparkContext.setLogLevel("ERROR")
 
     target_date = "2025-03-22"
     print(f"Evaluating Kalman Filter Performance for date: {target_date}...")
 
     # Read Raw (Bronze) and Cleaned (Silver) waypoints
-    df_raw = spark.read.table("catalog_iceberg.bus_bronze.bus_way_point").filter(col("date") == lit(target_date))
+    df_raw = spark.read.table("catalog_iceberg.bus_bronze.bus_way_point") \
+        .filter(col("date") == lit(target_date)) \
+        .dropDuplicates(["vehicle", "timestamp"])
     df_clean = spark.read.table("catalog_iceberg.bus_silver.bus_way_point").filter(col("date") == lit(target_date))
+
+    # Filter only vehicles that run on route '1' or '50'
+    df_map = spark.read.table("catalog_iceberg.bus_bronze.vehicle_bus_mapping")
+    vehicles_filtered = df_map.select("vehicle").distinct()
+
+    df_raw = df_raw.join(broadcast(vehicles_filtered), on="vehicle", how="inner")
+    df_clean = df_clean.join(broadcast(vehicles_filtered), on="vehicle", how="inner")
 
     # Rename raw coordinate columns to avoid naming collision after join
     df_raw_sel = df_raw.select(
@@ -46,8 +64,8 @@ def main():
         .withColumn("prev_y_f", lag("y").over(w)) \
         .withColumn("dt", unix_timestamp("timestamp") - unix_timestamp("prev_timestamp"))
 
-    # Filter out records where time difference is zero or invalid
-    df_kinematics = df_kinematics.filter((col("dt") > 0) & col("prev_timestamp").isNotNull())
+    # Filter out records where time difference is too small (avoiding high-frequency division noise) or invalid
+    df_kinematics = df_kinematics.filter((col("dt") >= 5) & col("prev_timestamp").isNotNull())
 
     # Calculate step distances
     df_kinematics = df_kinematics \

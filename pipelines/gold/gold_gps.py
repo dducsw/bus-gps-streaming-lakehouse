@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession, Window
 from pyspark.sql.functions import (
     col, trim, split, explode, when, broadcast,
     round, abs, hour, dayofweek, last, current_timestamp,
-    from_utc_timestamp
+    from_utc_timestamp, row_number, lit
 )
 
 def main():
@@ -11,7 +11,7 @@ def main():
 
     bus_df = (
         spark.read.table("catalog_iceberg.bus_silver.bus_way_point")
-        .filter(col("date").between("2025-03-21", "2025-04-06"))
+        .filter(col("date").between("2025-03-22", "2025-03-23"))
         .withColumn("x_round", round(col("x"), 4))
         .withColumn("y_round", round(col("y"), 4))
     )
@@ -52,7 +52,7 @@ def main():
     )
 
     # Left join: điểm dừng có RouteNo, giữa đường null
-    df_with_stop = (
+    df_joined = (
         bus_df.alias("b")
         .join(
             broadcast(stop_expand).alias("s"),
@@ -67,12 +67,28 @@ def main():
                 (abs(col("b.y") - col("s.lat")) < 0.0001)
             )
         )
+    )
+
+    # Deduplicate stop matches per vehicle waypoint by selecting the closest stop
+    df_joined = df_joined.withColumn(
+        "stop_distance",
+        when(col("s.Lng_round").isNotNull(),
+             abs(col("b.x") - col("s.lng")) + abs(col("b.y") - col("s.lat")))
+        .otherwise(lit(999.0))
+    )
+    
+    w_dedup = Window.partitionBy("vehicle", "timestamp").orderBy("stop_distance")
+    df_with_stop = (
+        df_joined
+        .withColumn("stop_rank", row_number().over(w_dedup))
+        .filter("stop_rank = 1")
+        .drop("stop_rank", "stop_distance")
         .drop("x_round", "y_round", "Lng_round", "Lat_round", "lng", "lat")
         .withColumnRenamed("RouteNo", "route_no_detected")
     )
 
-    # Forward-fill route_no theo vehicle + timestamp
-    w = Window.partitionBy("vehicle").orderBy("timestamp").rowsBetween(Window.unboundedPreceding, 0)
+    # Forward-fill route_no theo vehicle + date + timestamp (prevents leaking across day boundaries)
+    w = Window.partitionBy("vehicle", "date").orderBy("timestamp").rowsBetween(Window.unboundedPreceding, 0)
     df = (
         df_with_stop
         .withColumn("route_no", last("route_no_detected", ignorenulls=True).over(w))
@@ -102,14 +118,40 @@ def main():
     df = df.withColumn("is_moving", when(col("speed") > 0, 1).otherwise(0))
     df = df.withColumn("is_stopped", when(col("speed") == 0, 1).otherwise(0))
 
-    df.withColumn("updated_at", current_timestamp()).select(
+    # Recreate the table partitioned by date if it does not exist
+    spark.sql("CREATE NAMESPACE IF NOT EXISTS catalog_iceberg.bus_gold")
+    spark.sql("""
+        CREATE TABLE IF NOT EXISTS catalog_iceberg.bus_gold.gps_stats_overview (
+            vehicle STRING,
+            route_no STRING,
+            date DATE,
+            hour INT,
+            day_of_week INT,
+            day_type STRING,
+            is_peak_hour INT,
+            speed DOUBLE,
+            speed_level STRING,
+            is_moving INT,
+            is_stopped INT,
+            x DOUBLE,
+            y DOUBLE,
+            updated_at TIMESTAMP
+        )
+        USING iceberg
+        PARTITIONED BY (date)
+    """)
+
+    # Write data via overwritePartitions
+    df_final = df.withColumn("updated_at", current_timestamp()).select(
         "vehicle", "route_no", "date", "hour",
         "day_of_week", "day_type", "is_peak_hour",
         "speed", "speed_level", "is_moving", "is_stopped",
         col("b.x").alias("x"),
         col("b.y").alias("y"),
         "updated_at"
-    ).writeTo("catalog_iceberg.bus_gold.gps_stats_overview").createOrReplace()
+    )
+    
+    df_final.writeTo("catalog_iceberg.bus_gold.gps_stats_overview").overwritePartitions()
 
     print("WRITE GOLD SUCCESS")
 

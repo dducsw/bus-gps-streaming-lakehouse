@@ -42,12 +42,16 @@ $$H = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{bmatrix}$$
 ### 3.1 Nhiễu Đo lường ($R$)
 Ma trận hiệp phương sai nhiễu đo lường $R$ đại diện cho sai số ngẫu nhiên của máy thu GPS:
 $$R = \begin{bmatrix} R_{var} & 0 \\ 0 & R_{var} \end{bmatrix}$$
-Hiện tại, hệ thống sử dụng tham số tối ưu hóa $R_{var} = 5 \times 10^{-8}$ (tương đương sai số tiêu chuẩn khoảng $\approx 25\text{m}$ về khoảng cách địa lý).
+Hệ thống sử dụng tham số tối ưu hóa cố định $R_{var} = 1 \times 10^{-6}$ (tương đương với khoảng $111$ mét sai lệch chuẩn thực tế của GPS trong khu vực đô thị có nhiều nhà cao tầng). Giá trị này giúp bộ lọc cân bằng tối ưu giữa việc làm mượt gia tốc (giảm ~25% jitter) và giữ xe bus chạy ngay ngắn giữa tim đường (Mean Shift chỉ ~8.5m).
+
+> [!NOTE]
+> **Về việc vô hiệu hóa Adaptive R (Hiệu chuẩn động):** 
+> Thiết kế ban đầu sử dụng cơ chế Adaptive R tự động tính toán sai số đo lường cho mỗi xe dựa trên các chuỗi dừng đỗ. Tuy nhiên, do một số xe bị hỏng cảm biến tốc độ (luôn báo vận tốc $\le 2\text{ km/h}$ khi đang di chuyển thực tế), cơ chế hiệu chuẩn động đã tính sai lệch phương sai thành phương sai tĩnh cực lớn, gây trôi lệch định vị nghiêm trọng (Mean Shift tăng lên 28-30m). Việc tắt Adaptive R và sử dụng giá trị cố định $R_{var} = 10^{-6}$ giải quyết triệt để lỗi này và giữ xe chạy chính xác theo tim đường.
 
 ### 3.2 Nhiễu Hệ thống ($Q$)
 Ma trận $Q$ mô tả sai số của mô hình vật lý (xe tăng/giảm tốc hoặc rẽ, không đi thẳng đều). Áp dụng mô hình **Gia tốc nhiễu trắng liên tục (Continuous White Noise Acceleration)**:
 $$Q = \sigma_a^2 \begin{bmatrix} \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} & 0 \\ 0 & \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} \\ \frac{\Delta t^3}{2} & 0 & \Delta t^2 & 0 \\ 0 & \frac{\Delta t^3}{2} & 0 & \Delta t^2 \end{bmatrix}$$
-Trong đó, tham số gia tốc nhiễu hệ thống được cấu hình $\sigma_a^2 = 1.96 \times 10^{-10}$ (tương ứng với gia tốc xe buýt thông thường khoảng $1.55\text{ m/s}^2$).
+Trong đó, tham số gia tốc nhiễu hệ thống được cấu hình $\sigma_a^2 = 1 \times 10^{-11}$ — xe buýt di chuyển đầm, ít giật cục, tỷ lệ $Q_{pos}/R \approx 0.025$ tại $\Delta t = 10s$ giúp bộ lọc thực sự mịn hóa quỹ đạo mà không bị trôi lệch quá xa.
 
 ---
 
@@ -56,8 +60,8 @@ Trong đó, tham số gia tốc nhiễu hệ thống được cấu hình $\sigm
 Để giải quyết triệt để lỗi **GPS drift (trôi tọa độ tĩnh)** khi xe dừng đỗ tại các bến xe hoặc dừng đèn đỏ, thuật toán tích hợp logic kiểm tra trạng thái đứng yên của xe:
 
 ### 4.1 Điều kiện dừng tĩnh (Stationary Check)
-Nếu tốc độ đo được từ cảm biến cơ học của xe nhỏ hơn $1.0\text{ km/h}$:
-$$\text{is\_stationary} = (\text{speed}_{raw} < 1.0\text{ km/h})$$
+Nếu tốc độ đo được từ cảm biến cơ học của xe nhỏ hơn hoặc bằng $2.0\text{ km/h}$:
+$$\text{is\_stationary} = (\text{speed}_{raw} \le 2.0\text{ km/h})$$
 
 ### 4.2 Cấu hình Mô hình tĩnh (Stationary Model)
 Khi xe ở trạng thái tĩnh, thuật toán ép các thành phần vận tốc và hiệp phương sai vận tốc về 0, đồng thời chuyển đổi ma trận $F$ và $Q$ sang trạng thái đứng yên tuyệt đối:
@@ -75,7 +79,7 @@ Với mỗi điểm GPS của phương tiện theo thời gian, chu trình toán
 graph TD
     A[Bắt đầu điểm GPS mới] --> B{Kiểm tra dt > 15s?}
     B -- Có --> C[Reset bộ lọc về trạng thái thô]
-    B -- Không --> D{Kiểm tra tốc độ < 1.0 km/h?}
+    B -- Không --> D{Kiểm tra tốc độ <= 2.0 km/h?}
     D -- Có --> E[Áp dụng Mô hình tĩnh F = I, Q ~ 0]
     D -- Không --> F[Áp dụng Mô hình động F dt, Q dt]
     C --> G[Dự báo Predict: x_hat = F * x_hat, P = F * P * F_T + Q]

@@ -137,7 +137,7 @@ def main():
         "schema": "bus_gold",
         "sql": (
             "SELECT *,\n"
-            "  MOD(hour + 7, 24) as hour_vn\n"
+            "  hour as hour_vn\n"
             "FROM catalog_iceberg.bus_gold.gps_stats_overview"
         ),
         "params": None,
@@ -177,7 +177,7 @@ def main():
             {"column_name": "x", "verbose_name": None, "is_dttm": False, "is_active": True, "type": "DOUBLE", "groupby": True, "filterable": True, "expression": "", "description": None, "python_date_format": None, "extra": None},
             {"column_name": "y", "verbose_name": None, "is_dttm": False, "is_active": True, "type": "DOUBLE", "groupby": True, "filterable": True, "expression": "", "description": None, "python_date_format": None, "extra": None},
             {"column_name": "updated_at", "verbose_name": None, "is_dttm": True, "is_active": True, "type": "TIMESTAMP(6) WITH TIME ZONE", "groupby": True, "filterable": True, "expression": "", "description": None, "python_date_format": None, "extra": None},
-            {"column_name": "hour_vn", "verbose_name": "Giờ trong ngày (VN)", "is_dttm": False, "is_active": True, "type": "INTEGER", "groupby": True, "filterable": True, "expression": "MOD(hour + 7, 24)", "description": "Giờ GPS theo giờ Việt Nam (GMT+7), range 0-23", "python_date_format": None, "extra": None}
+            {"column_name": "hour_vn", "verbose_name": "Giờ trong ngày (VN)", "is_dttm": False, "is_active": True, "type": "INTEGER", "groupby": True, "filterable": True, "expression": "", "description": "Giờ GPS theo giờ Việt Nam (GMT+7), range 0-23", "python_date_format": None, "extra": None}
         ],
         "version": "1.0.0",
         "database_uuid": DB_UUID
@@ -930,7 +930,7 @@ def main():
                 dataset_data = {
                     "sql": (
                         "SELECT *,\n"
-                        "  MOD(hour + 7, 24) as hour_vn\n"
+                        "  hour as hour_vn\n"
                         "FROM catalog_iceberg.bus_gold.gps_stats_overview"
                     )
                 }

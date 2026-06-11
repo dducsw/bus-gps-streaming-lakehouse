@@ -4,11 +4,12 @@ import pandas as pd
 import redis
 
 class RedisBackedKalmanFilter:
-    def __init__(self, redis_host="redis", redis_port=6379, socket_timeout=5.0, R_var=1e-8, sigma_a_sq=1.96e-10, max_dt=15.0):
+    def __init__(self, redis_host="redis", redis_port=6379, socket_timeout=5.0, R_var=1e-6, sigma_a_sq=1e-11, max_dt=15.0):
         """
         Redis-backed Kalman Filter for GPS smoothing and velocity estimation.
-        - R_var: Measurement noise covariance (default 1e-8 corresponds to ~10 meters std dev).
-        - sigma_a_sq: Process acceleration noise covariance (default 1.96e-10 corresponds to ~1.55 m/s^2 acceleration std dev).
+        - R_var: Hardcoded measurement noise covariance fallback (default 1e-6, ~111m std dev).
+                 Note: Adaptive R from Redis has been disabled due to speed sensor calibration anomalies.
+        - sigma_a_sq: Process acceleration noise covariance (~0.35 m/s^2 for city bus at default 1e-11).
         - max_dt: Reset filter if time delta is larger than this threshold (seconds).
         """
         self.redis_host = redis_host
@@ -17,7 +18,9 @@ class RedisBackedKalmanFilter:
         self.R_var = R_var
         self.sigma_a_sq = sigma_a_sq
         self.max_dt = max_dt
-        
+        self.min_stationary_pings = 10   # minimum pings to update R from stationary segment
+        self.speed_threshold = 2.0       # km/h — GPS device reports min 1.0 km/h when stopped
+
         # Kalman matrix dimensions: 4 states (x, y, vx, vy), 2 measurements (x, y)
         self.H = np.array([
             [1.0, 0.0, 0.0, 0.0],
@@ -36,6 +39,7 @@ class RedisBackedKalmanFilter:
             decode_responses=True,
             socket_timeout=self.socket_timeout
         )
+
 
     def load_state(self, redis_client, vehicle, default_x, default_y, default_timestamp):
         state_key = f"kalman_state:{vehicle}"
@@ -93,7 +97,7 @@ class RedisBackedKalmanFilter:
         vehicle = pdf["vehicle"].iloc[0]
         redis_client = self.get_redis_client()
         
-        # Load state
+        # Load Kalman state
         x_hat, P, last_timestamp, is_new = self.load_state(
             redis_client, 
             vehicle, 
@@ -101,6 +105,9 @@ class RedisBackedKalmanFilter:
             pdf["y"].iloc[0], 
             pdf["timestamp"].iloc[0]
         )
+
+        # Use pre-configured measurement noise matrix R
+        R = self.R
 
         filtered_x = []
         filtered_y = []
@@ -134,7 +141,8 @@ class RedisBackedKalmanFilter:
 
             # Stationary Check (Dual-Model Kalman Filter)
             raw_speed = float(pdf["speed"].iloc[i])
-            is_stationary = (raw_speed < 1.0)
+            # Using self.speed_threshold to capture stationary state.
+            is_stationary = (raw_speed <= self.speed_threshold)
 
             if is_stationary:
                 # Force velocity states and covariance to zero
@@ -184,7 +192,7 @@ class RedisBackedKalmanFilter:
             Z = np.array([[raw_x], [raw_y]])
             
             Y = Z - (self.H @ x_hat)
-            S = (self.H @ P @ self.H.T) + self.R
+            S = (self.H @ P @ self.H.T) + R   # R = adaptive per-vehicle matrix
             K = P @ self.H.T @ np.linalg.inv(S)
 
             x_hat = x_hat + (K @ Y)

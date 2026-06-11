@@ -148,7 +148,7 @@ def main():
         bootstrap_servers="127.0.0.1:9092",
         topic_name="buswaypoint_json",
         file_pattern="data/HPCLAB/part1/part1/sub_raw_*.json",
-        records_per_second=100  # Set to 100 for around 100 msg/s
+        records_per_second=1000  # Set to 1000 for around 1000 msg/s
     )
     producer.run()
 
